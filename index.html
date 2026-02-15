@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的博客 · 闲言碎语</title>
-    <!-- 内嵌样式，简洁无依赖，轻松部署 GitHub Pages -->
+    <title>喹啉氨博客 · 小宝宝的日常</title>
+    <!-- ========== 样式区域：控制整个博客的外观 ========== -->
     <style>
-        /* 小小重置 + 柔和平滑风格 */
+        /* 全局重置：去掉默认边距，让排版更干净 */
         * {
             margin: 0;
             padding: 0;
@@ -30,7 +30,7 @@
             padding: 2.5rem 2rem;
         }
 
-        /* 博客头部 */
+        /* ----- 博客头部（标题、副标题、导航）----- */
         .blog-header {
             text-align: center;
             margin-bottom: 3rem;
@@ -41,7 +41,6 @@
         .blog-title {
             font-size: 2.8rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
             background: linear-gradient(135deg, #2d2d4a, #5a4f7c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -56,7 +55,7 @@
             margin-top: 0.25rem;
         }
 
-        /* 导航 */
+        /* 导航栏：可以增加/删除/修改链接 */
         .nav {
             display: flex;
             justify-content: center;
@@ -80,7 +79,7 @@
             color: #2d2d4a;
         }
 
-        /* 文章列表区域 */
+        /* ----- 文章列表区域 ----- */
         .posts-section {
             margin: 2.5rem 0;
         }
@@ -95,7 +94,7 @@
             padding-left: 1rem;
         }
 
-        /* 文章卡片 */
+        /* 单篇文章卡片 */
         .post-item {
             margin-bottom: 2.5rem;
             padding: 1.5rem 1.8rem;
@@ -129,6 +128,7 @@
             text-underline-offset: 4px;
         }
 
+        /* 元信息：日期、分类等 */
         .post-meta {
             font-size: 0.9rem;
             color: #7a7a9e;
@@ -148,6 +148,7 @@
             display: inline-block;
         }
 
+        /* 文章摘要：建议只写前几句话，后面加… */
         .post-excerpt {
             color: #3d3d55;
             margin-bottom: 1rem;
@@ -173,7 +174,24 @@
             border-bottom-color: #9b86c6;
         }
 
-        /* 页脚 */
+        /* 标签列表：每篇文章底部的tag */
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tag {
+            background: #e7e1f5;
+            color: #46426b;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        /* ----- 页脚 ----- */
         .blog-footer {
             margin-top: 3.5rem;
             padding-top: 1.8rem;
@@ -205,7 +223,7 @@
             text-decoration: underline;
         }
 
-        /* 响应式小调整 */
+        /* 手机小屏幕适配 */
         @media (max-width: 500px) {
             .container {
                 padding: 1.5rem 1rem;
@@ -223,140 +241,117 @@
                 gap: 1rem;
             }
         }
-
-        /* 模拟标签/分类小彩蛋 */
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .tag {
-            background: #e7e1f5;
-            color: #46426b;
-            padding: 0.2rem 0.9rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 头部区域 -->
+        <!-- ========== 头部：你的博客名字和导航 ========== -->
         <header class="blog-header">
-            <h1 class="blog-title">✧ 小径分岔的花园 ✧</h1>
-            <div class="blog-subtitle">—— 记录代码、阅读与日常思考</div>
-            <!-- 导航栏 -->
+            <!-- 博客主标题：想改什么直接改这里 -->
+            <h1 class="blog-title">✧小宝宝的天地✧</h1>
+            <!-- 副标题：可以写你的签名或一句话 -->
+            <div class="blog-subtitle">—— 小宝宝的日常٩(๑^o^๑)۶</div>
+
+            <!-- 导航栏：以后要添加“相册”“留言板”等，在这里加 <a> 标签 -->
             <nav class="nav">
                 <a href="index.html">首页</a>
-                <a href="about.html">关于</a>
-                <a href="archive.html">归档</a>
-                <a href="https://github.com/你的用户名" target="_blank" rel="noopener">GitHub</a>
+                <a href="about.html">关于</a>        <!-- 如果你没有about.html，可以先删掉这行 -->
+                <a href="archive.html">归档</a>      <!-- 同上 -->
+                <!-- 注意：下面这个GitHub链接我已经修正，href只放网址，属性分开写 -->
+                <a href="https://github.com/kuilinan" target="_blank" rel="noopener">GitHub</a>
             </nav>
         </header>
 
-        <!-- 博客主体：文章列表 -->
+        <!-- ========== 主体：所有文章卡片都放在这里 ========== -->
         <main class="posts-section">
             <h2 class="section-title">📝 最新文章</h2>
 
-            <!-- 文章 1 - 示例 -->
+            <!-- ===== 第一篇文章卡片（你修改过的自我介绍）===== -->
             <article class="post-item">
                 <h3 class="post-title">
-                    <a href="posts/从零开始搭建个人博客.html">从零开始搭建个人博客 · GitHub Pages 篇</a>
+                    <!-- ↓↓↓ 重要：链接要指向你真正的文章页面（在posts文件夹里）↓↓↓ -->
+                    <a href="posts/xunzhaotonghao.html">寻找同好一枚爱尿裤裤的害羞宝宝前来报到(○｀ 3′○)</a>
                 </h3>
                 <div class="post-meta">
-                    <span class="post-date">📅 2025-06-10</span>
-                    <span>📌 教程 · 前端</span>
+                    <span class="post-date">📅 2025-12-22</span>
+                    <span>宝宝日常😋</span>
                 </div>
                 <p class="post-excerpt">
-                    用 GitHub Pages 托管博客简直太方便了！这篇文章记录了我从创建仓库到写第一篇文章的全过程，包括如何绑定域名、自定义404页面，以及如何使用 Cloudflare 加速。希望能给也想搭建博客的你一些参考...
+                    嗨大家好呀~ (✧ω✧) 我是一枚在2024年11月来到湿热大家庭的超级可爱小宝宝一枚！现在还有点害羞和紧张，鼓起勇气来发帖…希望能认识温柔的大家，一起分享一些日常！(๑•́ ₃ •̀๑) 关于我：出生日期：2008年6月29日（是个超级年轻的宝宝哦！）宝宝人设：超级可爱、有点黏人、偶尔会害羞的小宝宝一枚…（说完自己先脸红了🫣）…… 
+                    <!-- 上面只摘录了开头，后面用……代替，保持卡片简洁 -->
                 </p>
-                <a href="posts/从零开始搭建个人博客.html" class="read-more">继续阅读 →</a>
+                <a href="posts/xunzhaotonghao.html" class="read-more">继续阅读 →</a>
                 <div class="tag-list">
-                    <span class="tag">GitHub</span>
-                    <span class="tag">Pages</span>
-                    <span class="tag">Hexo</span>
+                    <span class="tag">ABDL</span>
+                    <span class="tag">DL</span>
+                    <span class="tag">交友</span>
+                    <!-- 标签可以随意增删改 -->
                 </div>
             </article>
 
-            <!-- 文章 2 - 示例 -->
+            <!-- ===== 下面的文章是示例，建议你删掉或替换成你自己的 ===== -->
+            <!-- 如果你暂时没有其他文章，可以先保留第一篇，把下面三个删掉 -->
+            <!-- 删除方法：从 <article class="post-item"> 到 </article> 整块删掉 -->
+
+            <!-- 示例文章2 - 如果你不需要，直接删掉这个块 -->
             <article class="post-item">
                 <h3 class="post-title">
-                    <a href="posts/我的VS Code高效配置.html">我的 VS Code 高效配置 + 必装插件清单</a>
+                    <a href="posts/wodeshengri.html">今天我过生日啦！收到好多裤裤礼物🎁</a>
                 </h3>
                 <div class="post-meta">
-                    <span class="post-date">📅 2025-05-28</span>
-                    <span>📌 工具 · 开发</span>
+                    <span class="post-date">📅 2025-06-28</span>
+                    <span>生日日记</span>
                 </div>
                 <p class="post-excerpt">
-                    Visual Studio Code 已经是我每天离不开的编辑器。分享我目前的 settings.json 配置、主题以及那些能极大提升效率的插件：GitLens、Thunder Client、Prettier、Error Lens…… 附配置文件下载。
+                    今天是我18岁生日（虽然心理上永远是小宝宝😝），好朋友送了我一箱超级可爱的拉拉裤，还有小熊蛋糕！开心到飞起～晚上要穿着新裤裤睡觉觉💤……
                 </p>
-                <a href="posts/我的VS Code高效配置.html" class="read-more">继续阅读 →</a>
+                <a href="posts/wodeshengri.html" class="read-more">继续阅读 →</a>
                 <div class="tag-list">
-                    <span class="tag">VSCode</span>
-                    <span class="tag">效率</span>
-                    <span class="tag">配置</span>
+                    <span class="tag">生日</span>
+                    <span class="tag">礼物</span>
                 </div>
             </article>
 
-            <!-- 文章 3 - 示例 -->
+            <!-- 示例文章3 - 同样，不需要就删掉 -->
             <article class="post-item">
                 <h3 class="post-title">
-                    <a href="posts/理解CSS Grid布局.html">理解 CSS Grid 布局，这一篇就够了</a>
+                    <a href="posts/ruhezuohaizi.html">如何当一个快乐的小宝宝？我的5个小秘诀</a>
                 </h3>
                 <div class="post-meta">
-                    <span class="post-date">📅 2025-05-15</span>
-                    <span>📌 前端 · CSS</span>
+                    <span class="post-date">📅 2025-06-15</span>
+                    <span>经验分享</span>
                 </div>
                 <p class="post-excerpt">
-                    Grid 是 CSS 中最强大的布局系统。从基本概念（容器、项目、网格线）到实际案例（圣杯布局、不规则网格），配合几个常用套路，彻底掌握二维布局。文中所有代码片段都可以直接运行。
+                    很多人问我是怎么一直保持宝宝心态的？其实很简单：1. 允许自己偶尔尿裤裤（嘘…）2. 收集可爱的奶瓶和玩偶 3. 找一个温柔的玩伴…… 更多秘诀请点进来～
                 </p>
-                <a href="posts/理解CSS Grid布局.html" class="read-more">继续阅读 →</a>
+                <a href="posts/ruhezuohaizi.html" class="read-more">继续阅读 →</a>
                 <div class="tag-list">
-                    <span class="tag">CSS</span>
-                    <span class="tag">Grid</span>
-                    <span class="tag">响应式</span>
+                    <span class="tag">心得</span>
+                    <span class="tag">宝宝日常</span>
                 </div>
             </article>
 
-            <!-- 文章 4 - 示例 (短篇随笔) -->
-            <article class="post-item">
-                <h3 class="post-title">
-                    <a href="posts/最近读的几本书.html">最近读的几本书：推理、科幻与认知科学</a>
-                </h3>
-                <div class="post-meta">
-                    <span class="post-date">📅 2025-05-02</span>
-                    <span>📌 阅读 · 随笔</span>
-                </div>
-                <p class="post-excerpt">
-                    特德·姜的《呼吸》、丹尼尔·卡尼曼的《思考，快与慢》还有一本冷门的国产推理《凛冬之棺》。简单聊聊书里让我印象深刻的观点，以及它们如何影响了我对编程和生活的看法。
-                </p>
-                <a href="posts/最近读的几本书.html" class="read-more">继续阅读 →</a>
-                <div class="tag-list">
-                    <span class="tag">书评</span>
-                    <span class="tag">思考</span>
-                </div>
-            </article>
+            <!-- 如果你想暂时保留示例但不想显示太多，可以只留一篇，其他删掉 -->
         </main>
 
-        <!-- 页脚部分 -->
+        <!-- ========== 页脚：版权、联系方式等 ========== -->
         <footer class="blog-footer">
-            <small>© 2025 你的名字 · 由 GitHub Pages 强力驱动</small>
+            <!-- 年份自动更新，但“你的名字”需要改成你自己的 -->
+            <small>© 2025 喹啉氨 · 由 GitHub Pages 强力驱动</small>
             <div class="footer-links">
-                <a href="https://twitter.com/你的账号" target="_blank" rel="noopener">Twitter</a>
-                <a href="mailto:your.email@example.com">Email</a>
-                <a href="rss.xml">RSS</a>
+                <!-- 把下面的“你的账号”换成你自己的，如果不用可以删掉整行 -->
+                <a href="https://twitter.com/kuilinan" target="_blank" rel="noopener">Twitter</a>
+                <a href="mailto:kuilinan@example.com">Email</a>   <!-- 改成你真实的邮箱，或者删掉 -->
+                <!-- RSS如果你没有，可以删掉 -->
+                <a href="#">RSS</a>   <!-- 这里暂时用#占位，以后有RSS再改 -->
             </div>
-            <small style="opacity:0.7;">✎ 用 Markdown 写作，用 HTML 分享。</small>
+            <small style="opacity:0.7;">✎ 用爱写下的日常，用心记录的宝宝生活</small>
         </footer>
     </div>
 
-    <!-- 可选的小彩蛋：动态更新版权年份（懒人版） -->
+    <!-- 小脚本：自动更新页脚年份（你不需要动它） -->
     <script>
         (function() {
-            // 让页脚年份自动更新（可选）
             const yearSpan = document.querySelector('.blog-footer small');
             if (yearSpan) {
                 const currentYear = new Date().getFullYear();
@@ -364,15 +359,18 @@
             }
         })();
     </script>
-    <!-- 
-        使用说明（部署时请删除或移入注释）：
-        1. 将本文件保存为 index.html，放在你的 GitHub 仓库（用户名.github.io）根目录。
-        2. 修改导航栏、页脚的链接为你自己的真实链接。
-        3. 文章链接指向 posts/xxx.html —— 你需要创建 posts 文件夹，并放入对应的文章页面。
-           你也可以把链接改为 #，先看效果，以后慢慢添加文章。
-        4. 文章卡片中的日期、摘要、标签都可以按需替换。
-        5. 如果不想用“关于”等独立页面，可以删除对应导航链接，或修改为单页内的锚点。
-        6. 一切就绪后，push 到 GitHub，几分钟后你的博客就上线了！
+
+    <!-- ========== 超级详细的使用指南（可以留着，也可以删掉）==========
+        1. 修改博客标题：搜索 .blog-title 和 .blog-subtitle，改成你喜欢的。
+        2. 修改导航：在 <nav class="nav"> 里面添加或删除 <a> 标签。
+        3. 添加新文章：
+           - 先在 posts 文件夹里新建一个 .html 文件（可以参考我给你的文章模板）。
+           - 然后在下面复制一整块 <article class="post-item">...</article>，粘贴到 <main> 里面。
+           - 修改里面的标题、日期、摘要、链接和标签。
+        4. 删除示例文章：直接把不需要的 <article> 整块删掉。
+        5. 修改页脚信息：找到 <footer class="blog-footer">，把里面的文字和链接改成你自己的。
+        6. 如果想让文章卡片更整齐，每篇摘要最好只写两三行，后面加“……”。
+        7. 所有文件修改后，上传到 GitHub 仓库，几分钟后就会生效。
     -->
 </body>
 </html>
