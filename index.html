@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客 · 闲言碎语</title>
+    <!-- 内嵌样式，简洁无依赖，轻松部署 GitHub Pages -->
+    <style>
+        /* 小小重置 + 柔和平滑风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafc;
+            color: #1e1e2f;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            padding: 2.5rem 2rem;
+        }
+
+        /* 博客头部 */
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #f0f0f3;
+            padding-bottom: 1.8rem;
+        }
+
+        .blog-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2d2d4a, #5a4f7c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .blog-subtitle {
+            font-size: 1.1rem;
+            color: #6b6b8b;
+            font-weight: 400;
+            margin-top: 0.25rem;
+        }
+
+        /* 导航 */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #4a4a6a;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav a:hover {
+            border-bottom-color: #8f7bbf;
+            color: #2d2d4a;
+        }
+
+        /* 文章列表区域 */
+        .posts-section {
+            margin: 2.5rem 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #33334e;
+            margin-bottom: 1.5rem;
+            padding-left: 0.5rem;
+            border-left: 6px solid #b4a5d5;
+            padding-left: 1rem;
+        }
+
+        /* 文章卡片 */
+        .post-item {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem 1.8rem;
+            background: #f8f6ff;
+            border-radius: 20px;
+            transition: transform 0.15s, box-shadow 0.15s;
+            border: 1px solid #edeaf5;
+        }
+
+        .post-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(80, 60, 120, 0.15);
+            background: white;
+        }
+
+        .post-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        .post-title a {
+            text-decoration: none;
+            color: #1e1e2f;
+            font-weight: 600;
+        }
+
+        .post-title a:hover {
+            color: #6b4e9e;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #7a7a9e;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .post-date {
+            background: #e3dcf2;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #3e3a5f;
+            font-weight: 500;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .post-excerpt {
+            color: #3d3d55;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: none;
+            border: none;
+            color: #6b4e9e;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 0.2rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .read-more:hover {
+            border-bottom-color: #9b86c6;
+        }
+
+        /* 页脚 */
+        .blog-footer {
+            margin-top: 3.5rem;
+            padding-top: 1.8rem;
+            border-top: 2px solid #efecf5;
+            text-align: center;
+            color: #7b7b9c;
+            font-size: 0.95rem;
+        }
+
+        .blog-footer small {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .footer-links a {
+            color: #5a4f7c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* 响应式小调整 */
+        @media (max-width: 500px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            .blog-title {
+                font-size: 2.2rem;
+            }
+            .post-item {
+                padding: 1.2rem 1rem;
+            }
+            .post-title {
+                font-size: 1.5rem;
+            }
+            .nav {
+                gap: 1rem;
+            }
+        }
+
+        /* 模拟标签/分类小彩蛋 */
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tag {
+            background: #e7e1f5;
+            color: #46426b;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header class="blog-header">
+            <h1 class="blog-title">✧ 小径分岔的花园 ✧</h1>
+            <div class="blog-subtitle">—— 记录代码、阅读与日常思考</div>
+            <!-- 导航栏 -->
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="about.html">关于</a>
+                <a href="archive.html">归档</a>
+                <a href="https://github.com/你的用户名" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+        </header>
+
+        <!-- 博客主体：文章列表 -->
+        <main class="posts-section">
+            <h2 class="section-title">📝 最新文章</h2>
+
+            <!-- 文章 1 - 示例 -->
+            <article class="post-item">
+                <h3 class="post-title">
+                    <a href="posts/从零开始搭建个人博客.html">从零开始搭建个人博客 · GitHub Pages 篇</a>
+                </h3>
+                <div class="post-meta">
+                    <span class="post-date">📅 2025-06-10</span>
+                    <span>📌 教程 · 前端</span>
+                </div>
+                <p class="post-excerpt">
+                    用 GitHub Pages 托管博客简直太方便了！这篇文章记录了我从创建仓库到写第一篇文章的全过程，包括如何绑定域名、自定义404页面，以及如何使用 Cloudflare 加速。希望能给也想搭建博客的你一些参考...
+                </p>
+                <a href="posts/从零开始搭建个人博客.html" class="read-more">继续阅读 →</a>
+                <div class="tag-list">
+                    <span class="tag">GitHub</span>
+                    <span class="tag">Pages</span>
+                    <span class="tag">Hexo</span>
+                </div>
+            </article>
+
+            <!-- 文章 2 - 示例 -->
+            <article class="post-item">
+                <h3 class="post-title">
+                    <a href="posts/我的VS Code高效配置.html">我的 VS Code 高效配置 + 必装插件清单</a>
+                </h3>
+                <div class="post-meta">
+                    <span class="post-date">📅 2025-05-28</span>
+                    <span>📌 工具 · 开发</span>
+                </div>
+                <p class="post-excerpt">
+                    Visual Studio Code 已经是我每天离不开的编辑器。分享我目前的 settings.json 配置、主题以及那些能极大提升效率的插件：GitLens、Thunder Client、Prettier、Error Lens…… 附配置文件下载。
+                </p>
+                <a href="posts/我的VS Code高效配置.html" class="read-more">继续阅读 →</a>
+                <div class="tag-list">
+                    <span class="tag">VSCode</span>
+                    <span class="tag">效率</span>
+                    <span class="tag">配置</span>
+                </div>
+            </article>
+
+            <!-- 文章 3 - 示例 -->
+            <article class="post-item">
+                <h3 class="post-title">
+                    <a href="posts/理解CSS Grid布局.html">理解 CSS Grid 布局，这一篇就够了</a>
+                </h3>
+                <div class="post-meta">
+                    <span class="post-date">📅 2025-05-15</span>
+                    <span>📌 前端 · CSS</span>
+                </div>
+                <p class="post-excerpt">
+                    Grid 是 CSS 中最强大的布局系统。从基本概念（容器、项目、网格线）到实际案例（圣杯布局、不规则网格），配合几个常用套路，彻底掌握二维布局。文中所有代码片段都可以直接运行。
+                </p>
+                <a href="posts/理解CSS Grid布局.html" class="read-more">继续阅读 →</a>
+                <div class="tag-list">
+                    <span class="tag">CSS</span>
+                    <span class="tag">Grid</span>
+                    <span class="tag">响应式</span>
+                </div>
+            </article>
+
+            <!-- 文章 4 - 示例 (短篇随笔) -->
+            <article class="post-item">
+                <h3 class="post-title">
+                    <a href="posts/最近读的几本书.html">最近读的几本书：推理、科幻与认知科学</a>
+                </h3>
+                <div class="post-meta">
+                    <span class="post-date">📅 2025-05-02</span>
+                    <span>📌 阅读 · 随笔</span>
+                </div>
+                <p class="post-excerpt">
+                    特德·姜的《呼吸》、丹尼尔·卡尼曼的《思考，快与慢》还有一本冷门的国产推理《凛冬之棺》。简单聊聊书里让我印象深刻的观点，以及它们如何影响了我对编程和生活的看法。
+                </p>
+                <a href="posts/最近读的几本书.html" class="read-more">继续阅读 →</a>
+                <div class="tag-list">
+                    <span class="tag">书评</span>
+                    <span class="tag">思考</span>
+                </div>
+            </article>
+        </main>
+
+        <!-- 页脚部分 -->
+        <footer class="blog-footer">
+            <small>© 2025 你的名字 · 由 GitHub Pages 强力驱动</small>
+            <div class="footer-links">
+                <a href="https://twitter.com/你的账号" target="_blank" rel="noopener">Twitter</a>
+                <a href="mailto:your.email@example.com">Email</a>
+                <a href="rss.xml">RSS</a>
+            </div>
+            <small style="opacity:0.7;">✎ 用 Markdown 写作，用 HTML 分享。</small>
+        </footer>
+    </div>
+
+    <!-- 可选的小彩蛋：动态更新版权年份（懒人版） -->
+    <script>
+        (function() {
+            // 让页脚年份自动更新（可选）
+            const yearSpan = document.querySelector('.blog-footer small');
+            if (yearSpan) {
+                const currentYear = new Date().getFullYear();
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2025', currentYear);
+            }
+        })();
+    </script>
+    <!-- 
+        使用说明（部署时请删除或移入注释）：
+        1. 将本文件保存为 index.html，放在你的 GitHub 仓库（用户名.github.io）根目录。
+        2. 修改导航栏、页脚的链接为你自己的真实链接。
+        3. 文章链接指向 posts/xxx.html —— 你需要创建 posts 文件夹，并放入对应的文章页面。
+           你也可以把链接改为 #，先看效果，以后慢慢添加文章。
+        4. 文章卡片中的日期、摘要、标签都可以按需替换。
+        5. 如果不想用“关于”等独立页面，可以删除对应导航链接，或修改为单页内的锚点。
+        6. 一切就绪后，push 到 GitHub，几分钟后你的博客就上线了！
+    -->
+</body>
+</html>
