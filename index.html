@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>喹啉氨博客 · 小宝宝的日常</title>
-    <!-- ========== 样式区域：控制整个博客的外观 ========== -->
     <style>
-        /* 全局重置：去掉默认边距，让排版更干净 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: #fafafc;
@@ -20,8 +17,7 @@
             line-height: 1.6;
             padding: 2rem 1rem;
         }
-
-        。container {
+        .container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
@@ -29,15 +25,12 @@
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
             padding: 2.5rem 2rem;
         }
-
-        /* ----- 博客头部（标题、副标题、导航）----- */
-        。blog-header {
+        .blog-header {
             text-align: center;
             margin-bottom: 3rem;
             border-bottom: 2px solid #f0f0f3;
             padding-bottom: 1.8rem;
         }
-
         .blog-title {
             font-size: 2.8rem;
             font-weight: 700;
@@ -47,15 +40,12 @@
             background-clip: text;
             margin-bottom: 0.25rem;
         }
-
         .blog-subtitle {
             font-size: 1.1rem;
             color: #6b6b8b;
             font-weight: 400;
             margin-top: 0.25rem;
         }
-
-        /* 导航栏：可以增加/删除/修改链接 */
         .nav {
             display: flex;
             justify-content: center;
@@ -63,7 +53,6 @@
             margin: 1.5rem 0 0.5rem;
             flex-wrap: wrap;
         }
-
         .nav a {
             text-decoration: none;
             color: #4a4a6a;
@@ -73,47 +62,41 @@
             border-bottom: 2px solid transparent;
             transition: border-color 0.2s, color 0.2s;
         }
-                     .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1rem;
-                margin: 2rem 0;
-            }
-            .stat-card {
-                background: white;
-                border: 2px solid #ffe4e0;
-                border-radius: 1px;
-                padding: 0.8rem 0.2rem;
-                text-align: center;
-                font-size: 1rem;
-                color: #f0f0f3;
-            }
-            .stat-card strong {
-                display: block;
-                font-size: 1.6rem;
-                color: #f0f0f3;
-            }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: white;
+            border: 2px solid #ffe4e0;
+            border-radius: 12px; /* 修复原1px圆角，匹配博客整体风格 */
+            padding: 0.8rem 0.2rem;
+            text-align: center;
+            font-size: 1rem;
+            color: #4a4a6a; /* 修复原浅灰不可见颜色 */
+        }
+        .stat-card strong {
+            display: block;
+            font-size: 1.6rem;
+            color: #2d2d4a; /* 修复原浅灰不可见颜色 */
+        }
         .nav a:hover {
             border-bottom-color: #8f7bbf;
             color: #2d2d4a;
         }
-
-        /* ----- 文章列表区域 ----- */
         .posts-section {
             margin: 2.5rem 0;
         }
-
         .section-title {
             font-size: 1.8rem;
             font-weight: 600;
             color: #33334e;
             margin-bottom: 1.5rem;
-            padding-left: 0.5rem;
-            border-left: 6px solid #b4a5d5;
             padding-left: 1rem;
+            border-left: 6px solid #b4a5d5;
         }
-
-        /* 单篇文章卡片 */
         .post-item {
             margin-bottom: 2.5rem;
             padding: 1.5rem 1.8rem;
@@ -122,32 +105,26 @@
             transition: transform 0.15s, box-shadow 0.15s;
             border: 1px solid #edeaf5;
         }
-
         .post-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 24px -10px rgba(80, 60, 120, 0.15);
             background: white;
         }
-
         .post-title {
             font-size: 1.8rem;
             margin-bottom: 0.4rem;
             line-height: 1.3;
         }
-
         .post-title a {
             text-decoration: none;
             color: #1e1e2f;
             font-weight: 600;
         }
-
         .post-title a:hover {
             color: #6b4e9e;
             text-decoration: underline;
             text-underline-offset: 4px;
         }
-
-        /* 元信息：日期、分类等 */
         .post-meta {
             font-size: 0.9rem;
             color: #7a7a9e;
@@ -156,7 +133,6 @@
             align-items: center;
             gap: 1rem;
         }
-
         .post-date {
             background: #e3dcf2;
             padding: 0.2rem 0.8rem;
@@ -166,14 +142,11 @@
             font-size: 0.8rem;
             display: inline-block;
         }
-
-        /* 文章摘要：建议只写前几句话，后面加… */
         .post-excerpt {
             color: #3d3d55;
             margin-bottom: 1rem;
             font-size: 1.05rem;
         }
-
         .read-more {
             display: inline-flex;
             align-items: center;
@@ -188,12 +161,9 @@
             padding: 0.2rem 0;
             border-bottom: 2px solid transparent;
         }
-
         .read-more:hover {
             border-bottom-color: #9b86c6;
         }
-
-        /* 标签列表：每篇文章底部的tag */
         .tag-list {
             display: flex;
             flex-wrap: wrap;
@@ -209,8 +179,6 @@
             font-weight: 500;
             letter-spacing: 0.3px;
         }
-
-        /* ----- 页脚 ----- */
         .blog-footer {
             margin-top: 3.5rem;
             padding-top: 1.8rem;
@@ -219,30 +187,24 @@
             color: #7b7b9c;
             font-size: 0.95rem;
         }
-
         .blog-footer small {
             display: block;
             margin-bottom: 0.5rem;
         }
-
         .footer-links {
             display: flex;
             justify-content: center;
             gap: 1.8rem;
             margin: 1rem 0 0.5rem;
         }
-
         .footer-links a {
             color: #5a4f7c;
             text-decoration: none;
             font-weight: 500;
         }
-
         .footer-links a:hover {
             text-decoration: underline;
         }
-
-        /* 手机小屏幕适配 */
         @media (max-width: 500px) {
             .container {
                 padding: 1.5rem 1rem;
@@ -264,31 +226,43 @@
 </head>
 <body>
     <div class="container">
-        <!-- ========== 头部：你的博客名字和导航 ========== -->
         <header class="blog-header">
-            <!-- 博客主标题：想改什么直接改这里 -->
             <h1 class="blog-title">✧小宝宝的天地✧</h1>
-            <!-- 副标题：可以写你的签名或一句话 -->
             <div class="blog-subtitle">—— 小宝宝的日常٩(๑^o^๑)۶</div>
-
-            <!-- 导航栏：以后要添加“相册”“留言板”等，在这里加 <a> 标签 -->
             <nav class="nav">
                 <a href="index.html">首页</a>
-                <a href="关于.html">关于</a>        <!-- 如果你没有about.html，可以先删掉这行 -->
-                <a href="归档.html">归档</a>      <!-- 同上 -->
-                <!-- 注意：下面这个GitHub链接我已经修正，href只放网址，属性分开写 -->
-                   </nav>
-                   </header>
-                   <div class="stats-grid">
-                   <div class="stat-card">文章 <strong>1</strong></div>
-                   <div class="stat-card">字数 <strong>2k</strong></div>
-                   <div class="stat-card">运行 <strong>2</strong></div>
-                   <div class="stat-card">📈访问 <strong>～</strong></div>
-                </div>
-        <!-- ========== 主体：所有文章卡片都放在这里 ========== -->
+                <a href="关于.html">关于</a>
+                <a href="归档.html">归档</a>
+            </nav>
+        </header>
+        <!-- 顶部统计卡片：整合不蒜子PV统计 -->
+        <div class="stats-grid">
+            <div class="stat-card">文章 <strong>1</strong></div>
+            <div class="stat-card">字数 <strong>2k</strong></div>
+            <div class="stat-card">运行 <strong>2</strong></div>
+            <div class="stat-card">📈访问 <strong><span id="busuanzi_value_site_pv"></span></strong></div>
+        </div>
+        <!-- 文章卡片 - 博客上线纪念 -->
+<article class="post-item">
+    <h3 class="post-title">
+        <a href="posts/博客上线啦～.html">🎉 小花园开张啦 · 博客上线纪念 🎉</a>
+    </h3>
+    <div class="post-meta">
+        <span class="post-date">🗓️2026-02-16</span>
+        <span>📌 宝宝日记 · 庆祝</span>
+    </div>
+    <p class="post-excerpt">
+        今天我的小博客终于开张啦！以后会在这里写宝宝日记、ABDL碎碎念，还有三个平台同步更新哦～快来小角落坐坐吧 (⁄ ⁄•⁄ω⁄•⁄ ⁄)
+    </p>
+    <a href="posts/上线.html" class="read-more">来看看开张典礼 →</a>
+    <div class="tag-list">
+        <span class="tag">#博客上线</span>
+        <span class="tag">#三个平台</span>
+    </div>
+</article>
+        <!-- 博客主体：修复原代码缺失的</main>闭合标签 -->
         <main class="posts-section">
             <h2 class="section-title">📝 最新文章</h2>
-            <!-- 文章卡片 - 自我介绍 -->
             <article class="post-item">
                 <h3 class="post-title">
                     <a href="posts/自我介绍-温暖小角落.html">🍼 一枚超级小宝宝的自我介绍 · 想认识温暖的你 ✨</a>
@@ -298,7 +272,7 @@
                     <span>📌 宝宝日记 · 交友</span>
                 </div>
                 <p class="post-excerpt">
-                    嗨大家好呀～我是一枚2024年11月来到大家庭超级小宝宝！有点害羞地来寻找同龄玩伴… 悄悄告诉你，「喹啉氨」才是我的大名，之后会在三个平台同步更新哦！(✧ω✧)
+                    嗨大家好呀～我是一枚2024年11月来到湿热的超级小宝宝！有点害羞地来寻找同龄玩伴… 悄悄告诉你，「喹啉氨」才是我的大名，之后会在三个平台同步更新哦！(✧ω✧)
                 </p>
                 <a href="posts/自我介绍-温暖小角落.html" class="read-more">来看看小宝宝 →</a>
                 <div class="tag-list">
@@ -307,32 +281,25 @@
                     <span class="tag">#三个平台</span>
                 </div>
             </article>
-
-            <!-- ===== 下面的文章是示例，建议你删掉或替换成你自己的 ===== -->
-            <!-- 如果你暂时没有其他文章，可以先保留第一篇，把下面三个删掉 -->
-            <!-- 删除方法：从 <article class="post-item"> 到 </article> 整块删掉 -->
-
-        <!-- ========== 页脚：版权、联系方式等 ========== -->
-                <footer class="blog-footer">
-                <small>© 2025 喹啉氨 </small>
-                <div style="margin: 0.5rem 0; color: #8a7aa9;">
-                <!-- 访客统计 -->
+        </main>
+        <!-- 页脚：保留不蒜子PV+UV双统计 -->
+        <footer class="blog-footer">
+            <small>© 2025 喹啉氨 </small>
+            <div style="margin: 0.5rem 0; color: #8a7aa9;">
                 <span>🌐 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
                 <span style="margin:0 0.5rem">|</span>
-                <span>👥 访客数 <span id="busuanzi_value_site_uv"></span> 人</span>
-                </div>
-                <div class="footer-links">
+                <span>👥 独立访客 <span id="busuanzi_value_site_uv"></span> 人</span>
+            </div>
+            <div class="footer-links">
                 <a href="https://twitter.com/kuilinan" target="_blank" rel="noopener">Twitter</a>
                 <a href="mailto:kuilinan@qq.com">📧</a>
                 <a href="rss.xml">RSS</a>
-                </div>
-                <small style="opacity:0.7;">✎写下的日常，记录宝宝生活。</small>
-            </footer>
+            </div>
+            <small style="opacity:0.7;">✎写下的日常，记录宝宝生活。</small>
+        </footer>
+    </div>
 
-<!-- 引入不蒜子脚本（放在 body 结束前） -->
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <!-- 小脚本：自动更新页脚年份（你不需要动它） -->
+    <!-- 自动更新页脚年份脚本 -->
     <script>
         (function() {
             const yearSpan = document.querySelector('.blog-footer small');
@@ -342,18 +309,7 @@
             }
         })();
     </script>
-
-    <!-- ========== 超级详细的使用指南（可以留着，也可以删掉）==========
-        1. 修改博客标题：搜索 .blog-title 和 .blog-subtitle，改成你喜欢的。
-        2. 修改导航：在 <nav class="nav"> 里面添加或删除 <a> 标签。
-        3. 添加新文章：
-           - 先在 posts 文件夹里新建一个 .html 文件（可以参考我给你的文章模板）。
-           - 然后在下面复制一整块 <article class="post-item">...</article>，粘贴到 <main> 里面。
-           - 修改里面的标题、日期、摘要、链接和标签。
-        4. 删除示例文章：直接把不需要的 <article> 整块删掉。
-        5. 修改页脚信息：找到 <footer class="blog-footer">，把里面的文字和链接改成你自己的。
-        6. 如果想让文章卡片更整齐，每篇摘要最好只写两三行，后面加“……”。
-        7. 所有文件修改后，上传到 GitHub 仓库，几分钟后就会生效。
-    -->
+    <!-- 不蒜子核心脚本：极简免费，无需注册（必须放在body末尾） -->
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>
