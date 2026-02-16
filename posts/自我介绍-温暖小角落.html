@@ -20,7 +20,7 @@
             padding: 2rem 1rem;
         }
 
-        .container {
+        。container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
@@ -30,7 +30,7 @@
         }
 
         /* 文章头部 */
-        .post-header {
+        。post-header {
             margin-bottom: 2.2rem;
             border-bottom: 2px solid #f0eef5;
             padding-bottom: 1.5rem;
@@ -85,7 +85,7 @@
             font-size: 1.08rem;
         }
 
-        .post-content h2 {
+        。post-content h2 {
             font-size: 1.8rem;
             margin: 2rem 0 1rem;
             color: #373356;
@@ -250,15 +250,3 @@
         </article>
     </div>
 
-    <!-- 小脚本：让年份自动更新（和首页同步） -->
-    <script>
-        (function() {
-            const dates = document.querySelectorAll('.post-date');
-            const currentYear = new Date().getFullYear();
-            dates.forEach(el => {
-                el.innerHTML = el.innerHTML.replace('2025', currentYear);
-            });
-        })();
-    </script>
-</body>
-</html>
