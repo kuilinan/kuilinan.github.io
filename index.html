@@ -21,7 +21,7 @@
             padding: 2rem 1rem;
         }
 
-        。container {
+        .container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
@@ -31,7 +31,7 @@
         }
 
         /* ----- 博客头部（标题、副标题、导航）----- */
-        。blog-header {
+        .blog-header {
             text-align: center;
             margin-bottom: 3rem;
             border-bottom: 2px solid #f0f0f3;
@@ -157,7 +157,7 @@
             gap: 1rem;
         }
 
-        。post-date {
+        .post-date {
             background: #e3dcf2;
             padding: 0.2rem 0.8rem;
             border-radius: 30px;
@@ -312,22 +312,25 @@
             <!-- 如果你暂时没有其他文章，可以先保留第一篇，把下面三个删掉 -->
             <!-- 删除方法：从 <article class="post-item"> 到 </article> 整块删掉 -->
 
-
-
         <!-- ========== 页脚：版权、联系方式等 ========== -->
-        <footer class="blog-footer">
-            <!-- 年份自动更新，但“你的名字”需要改成你自己的 -->
-            <small>© 2025 喹啉氨 </small>
-            <div class="footer-links">
-                <!-- 把下面的“你的账号”换成你自己的，如果不用可以删掉整行 -->
+                <footer class="blog-footer">
+                <small>© 2025 喹啉氨 </small>
+                <div style="margin: 0.5rem 0; color: #8a7aa9;">
+                <!-- 访客统计 -->
+                <span>🌐 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+                <span style="margin:0 0.5rem">|</span>
+                <span>👥 访客数 <span id="busuanzi_value_site_uv"></span> 人</span>
+                </div>
+                <div class="footer-links">
                 <a href="https://twitter.com/kuilinan" target="_blank" rel="noopener">Twitter</a>
-                <a href="mailto:kuilinan@qq.com">📧</a>   <!-- 改成你真实的邮箱，或者删掉 -->
-                <!-- RSS如果你没有，可以删掉 -->
-                <a href="#">RSS</a>   <!-- 这里暂时用#占位，以后有RSS再改 -->
-            </div>
-            <small style="opacity:0.7;">✎ 用爱写下的日常，记录的宝宝生活</small>
-        </footer>
-    </div>
+                <a href="mailto:kuilinan@qq.com">📧</a>
+                <a href="rss.xml">RSS</a>
+                </div>
+                <small style="opacity:0.7;">✎写下的日常，记录宝宝生活。</small>
+            </footer>
+
+<!-- 引入不蒜子脚本（放在 body 结束前） -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <!-- 小脚本：自动更新页脚年份（你不需要动它） -->
     <script>
