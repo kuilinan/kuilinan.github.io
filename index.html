@@ -73,7 +73,26 @@
             border-bottom: 2px solid transparent;
             transition: border-color 0.2s, color 0.2s;
         }
-
+                     .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+                margin: 2rem 0;
+            }
+            .stat-card {
+                background: white;
+                border: 2px solid #ffe4e0;
+                border-radius: 1px;
+                padding: 0.8rem 0.2rem;
+                text-align: center;
+                font-size: 1rem;
+                color: #f0f0f3;
+            }
+            .stat-card strong {
+                display: block;
+                font-size: 1.6rem;
+                color: #f0f0f3;
+            }
         .nav a:hover {
             border-bottom-color: #8f7bbf;
             color: #2d2d4a;
@@ -258,34 +277,34 @@
                 <a href="about.html">关于</a>        <!-- 如果你没有about.html，可以先删掉这行 -->
                 <a href="archive.html">归档</a>      <!-- 同上 -->
                 <!-- 注意：下面这个GitHub链接我已经修正，href只放网址，属性分开写 -->
-                <a href="https://github.com/kuilinan" target="_blank" rel="noopener">GitHub</a>
-            </nav>
-        </header>
-
+                   </nav>
+                   </header>
+                   <div class="stats-grid">
+                   <div class="stat-card">📄文章 <strong>32</strong></div>
+                   <div class="stat-card">✍️字数 <strong>5k</strong></div>
+                   <div class="stat-card">⏳运行 <strong>241天</strong></div>
+                   <div class="stat-card">👀访问 <strong>13.8k</strong></div>
+                </div>
         <!-- ========== 主体：所有文章卡片都放在这里 ========== -->
         <main class="posts-section">
             <h2 class="section-title">📝 最新文章</h2>
-
-            <!-- ===== 第一篇文章卡片（你修改过的自我介绍）===== -->
+            <!-- 文章卡片 - 自我介绍 -->
             <article class="post-item">
                 <h3 class="post-title">
-                    <!-- ↓↓↓ 重要：链接要指向你真正的文章页面（在posts文件夹里）↓↓↓ -->
-                    <a href="posts/xunzhaotonghao.html">寻找同好一枚爱尿裤裤的害羞宝宝前来报到(○｀ 3′○)</a>
+                    <a href="posts/自我介绍-温暖小角落.html">🍼 一枚超级小宝宝的自我介绍 · 想认识温暖的你 ✨</a>
                 </h3>
                 <div class="post-meta">
-                    <span class="post-date">📅 2025-12-22</span>
-                    <span>宝宝日常😋</span>
+                    <span class="post-date">📅 2025-06-15</span>
+                    <span>📌 宝宝日记 · 交友</span>
                 </div>
                 <p class="post-excerpt">
-                    嗨大家好呀~ (✧ω✧) 我是一枚在2024年11月来到湿热大家庭的超级可爱小宝宝一枚！现在还有点害羞和紧张，鼓起勇气来发帖…希望能认识温柔的大家，一起分享一些日常！(๑•́ ₃ •̀๑) 关于我：出生日期：2008年6月29日（是个超级年轻的宝宝哦！）宝宝人设：超级可爱、有点黏人、偶尔会害羞的小宝宝一枚…（说完自己先脸红了🫣）…… 
-                    <!-- 上面只摘录了开头，后面用……代替，保持卡片简洁 -->
+                    嗨大家好呀～我是一枚2024年11月来到湿热的超级小宝宝！有点害羞地来寻找同龄玩伴… 悄悄告诉你，「喹啉氨」才是我的大名，之后会在三个平台同步更新哦！(✧ω✧)
                 </p>
-                <a href="posts/xunzhaotonghao.html" class="read-more">继续阅读 →</a>
+                <a href="posts/自我介绍-温暖小角落.html" class="read-more">来看看小宝宝 →</a>
                 <div class="tag-list">
-                    <span class="tag">ABDL</span>
-                    <span class="tag">DL</span>
-                    <span class="tag">交友</span>
-                    <!-- 标签可以随意增删改 -->
+                    <span class="tag">#ABDL</span>
+                    <span class="tag">#DL</span>
+                    <span class="tag">#三个平台</span>
                 </div>
             </article>
 
