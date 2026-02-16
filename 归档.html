@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归档 · 小径分岔的花园</title>
+    <style>
+        /* 整体风格与首页保持一致，但归档列表更紧凑 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafc;
+            color: #1e1e2f;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
+            padding: 2rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #f0eef5;
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #3e3a5f, #6b4e9e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .back-home {
+            background: #e4daf2;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            color: #3c3569;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            border: 1px solid #cdbde8;
+        }
+
+        .back-home:hover {
+            background: #d3c2f0;
+        }
+
+        /* 归档年份标题 */
+        .archive-year {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #4a3f6e;
+            margin: 1.2rem 0 0.5rem;
+            border-bottom: 2px dashed #cdbeea;
+            padding-bottom: 0.2rem;
+        }
+
+        /* 文章列表 */
+        .archive-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+
+        /* 每个条目：紧凑！ */
+        .archive-item {
+            display: flex;
+            align-items: baseline;
+            padding: 0.4rem 0.5rem;        /* 上下内边距减小 */
+            border-radius: 12px;
+            transition: background 0.15s;
+            border-bottom: 1px solid #f0eaf8;
+            font-size: 0.95rem;              /* 稍微缩小字体 */
+        }
+
+        .archive-item:hover {
+            background: #f5f0fd;
+        }
+
+        .archive-date {
+            min-width: 65px;                  /* 日期宽度收窄 */
+            color: #6f5f97;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .archive-title {
+            flex: 1;
+            margin: 0 0.5rem;
+            white-space: nowrap;               /* 禁止换行，保证紧凑 */
+            overflow: hidden;
+            text-overflow: ellipsis;            /* 超长加省略号 */
+        }
+
+        .archive-title a {
+            text-decoration: none;
+            color: #2a2a4a;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .archive-title a:hover {
+            color: #6b4e9e;
+            text-decoration: underline;
+        }
+
+        .archive-category {
+            background: #e5d9f2;
+            padding: 0.15rem 0.8rem;           /* 分类标签内边距减小 */
+            border-radius: 30px;
+            font-size: 0.75rem;                 /* 分类字体更小 */
+            color: #423d63;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 0.5rem;
+        }
+
+        /* 分类统计小标签，也调紧凑 */
+        .category-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem;
+            padding: 0.6rem 1rem;
+            background: #f2ebfa;
+            border-radius: 30px;
+        }
+
+        .category-tag {
+            background: white;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            color: #4a3f6e;
+            font-size: 0.8rem;
+            border: 1px solid #cdbde8;
+        }
+
+        .footer-links {
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #7b7b9c;
+            font-size: 0.9rem;
+        }
+
+        .emoji-deco {
+            font-size: 1.1rem;
+            margin-right: 3px;
+        }
+
+        /* 小屏适配 */
+        @media (max-width: 500px) {
+            .container { padding: 1.5rem 1rem; }
+            .page-title { font-size: 1.8rem; }
+            .archive-item {
+                flex-wrap: wrap;               /* 实在太小就换行 */
+                padding: 0.6rem 0.3rem;
+            }
+            .archive-date { min-width: 55px; }
+            .archive-title {
+                white-space: normal;            /* 小屏允许换行 */
+                margin: 0.2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">文章归档</h1>
+            <a href="index.html" class="back-home">🏡 返回首页</a>
+        </div>
+
+        <!-- 分类统计（可爱小标签） -->
+        <div class="category-summary">
+            <span class="category-tag">📌 全部文章 · 1篇</span>
+            <span class="category-tag">🍼 宝宝日记 · 0篇</span>
+            <span class="category-tag">   ABDL · 1篇</span>
+            <span class="category-tag">📖 阅读 · 0篇</span>
+            <span class="category-tag">💻 技术 · 0篇</span>
+        </div>
+
+        <!-- 按年份归档 -->
+        <div class="archive-section">
+            <h2 class="archive-year">2025</h2>
+            <ul class="archive-list">
+                <!-- 自我介绍文章 —— 已使用紧凑样式 -->
+                <li class="archive-item">
+                    <span class="archive-date">06-15</span>
+                    <span class="archive-title">
+                        <a href="posts/自我介绍-温暖小角落.html">🍼 一枚超级小宝宝的自我介绍 · 想认识温暖的你 ✨</a>
+                    </span>
+                    <span class="archive-category">宝宝日记</span>
+                </li>
+                <!-- 后续文章可继续添加，样式自动紧凑 -->
+                <!--
+                <li class="archive-item">
+                    <span class="archive-date">06-10</span>
+                    <span class="archive-title">
+                        <a href="posts/从零开始搭建个人博客.html">从零开始搭建个人博客 · GitHub Pages 篇</a>
+                    </span>
+                    <span class="archive-category">技术</span>
+                </li>
+                -->
+            </ul>
+        </div>
+
+        <!-- 一个可爱的提示，占空间很小 -->
+        <p style="text-align: center; color: #8a7aa9; margin: 1.5rem 0 0; font-size:0.9rem;">
+            <span class="emoji-deco">📎</span> 慢慢存档，花园会越来越茂盛～
+        </p>
+
+        <div class="footer-links">
+            <small>© 2025 喹啉氨 小径分岔的花园</small>
+        </div>
+    </div>
+    <script>
+        // 自动更新年份
+        document.querySelector('small').innerHTML = document.querySelector('small').innerHTML.replace('2025', new Date().getFullYear());
+    </script>
+</body>
+</html>
