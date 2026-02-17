@@ -86,6 +86,166 @@
             border-bottom-color: #8f7bbf;
             color: #2d2d4a;
         }
+        /* 关于我卡片 */
+.about-card {
+    background: #f8f6ff;
+    border-radius: 24px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    border: 1px solid #edeaf5;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.about-avatar {
+    width: 120px;
+    height: 120px;
+    background: #e3dcf2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    border: 4px solid white;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    }
+    .about-info {
+        flex: 1;
+        min-width: 250px;
+    }
+    .about-info h2 {
+        font-size: 2rem;
+        color: #3e3a5f;
+        margin-bottom: 0.5rem;
+    }
+    .about-info p {
+        color: #5a4f7c;
+        margin-bottom: 1rem;
+    }
+    .contact-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin: 1.2rem 0;
+    }
+    .contact-item {
+        background: white;
+        padding: 0.5rem 1.2rem;
+        border-radius: 40px;
+        border: 1px solid #cdbde8;
+        color: #4a4270;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .contact-item:hover {
+        background: #efe8ff;
+        transform: scale(1.02);
+        border-color: #9b86c6;
+    }
+    .about-quote {
+        font-style: italic;
+        color: #7a6aa9;
+        border-left: 4px solid #b8a8e0;
+        padding-left: 1rem;
+        margin-top: 1rem;
+    }
+    @media (max-width: 600px) {
+    .about-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    .contact-icons {
+        justify-content: center;
+    }
+}
+       /* 关于我卡片 - 紧凑版 */
+    .about-card {
+        background: #f8f6ff;
+        border-radius: 20px;
+        padding: 1.2rem 1.5rem;  /* 减小内边距 */
+        margin-bottom: 2rem;
+        border: 1px solid #edeaf5;
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .about-avatar {
+        width: 70px;              /* 缩小头像尺寸 */
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;          /* 保证图片按容器裁剪 */
+        flex-shrink: 0;
+        border: 3px solid white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .about-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;        /* 图片覆盖整个容器，不变形 */
+    }
+    .about-info {
+        flex: 1;
+        min-width: 200px;
+    }
+    .about-info h2 {
+        font-size: 1.5rem;        /* 减小标题字体 */
+        color: #3e3a5f;
+        margin-bottom: 0.2rem;
+    }
+    .about-info p {
+        color: #5a4f7c;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;        /* 缩小简介文字 */
+    }
+    .contact-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.8rem 0;
+    }
+    .contact-item {
+        background: white;
+        padding: 0.3rem 1rem;      /* 减小按钮内边距 */
+        border-radius: 30px;
+        border: 1px solid #cdbde8;
+        color: #4a4270;
+        text-decoration: none;
+        font-size: 0.85rem;        /* 缩小文字 */
+        transition: 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    .contact-item:hover {
+        background: #efe8ff;
+        transform: scale(1.02);
+        border-color: #9b86c6;
+    }
+    .about-quote {
+        font-style: italic;
+        color: #7a6aa9;
+        border-left: 3px solid #b8a8e0;
+        padding-left: 0.8rem;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+    }
+    @media (max-width: 500px) {
+        .about-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 1rem;
+        }
+        .contact-icons {
+            justify-content: center;
+        }
+    } 
         .posts-section {
             margin: 2.5rem 0;
         }
@@ -236,8 +396,25 @@
                 <a href="统计.html">📊 统计</a>
             </nav>
            </header>
-          <!-- 文章卡片 - 博客上线纪念 -->
-           <main class="posts-section">
+    <!-- 关于我卡片 - 紧凑版，带真实头像 -->
+    <div class="about-card">
+        <div class="about-avatar">
+            <img src="images/touxiang.png" alt="喹啉氨头像">
+        </div>
+        <div class="about-info">
+            <h2>喹啉氨宝宝</h2>
+            <p>2008年出生 · DL · 害羞黏人</p>
+            <div class="contact-icons">
+            <a href="mailto:kuilinan@qq.com" class="contact-item" title="邮箱">📧 邮箱</a>
+            <a href="https://twitter.com/kuilinan" target="_blank" class="contact-item" title="推特">🐦 推特</a>
+            <a href="#" class="contact-item" title="QQ" onclick="alert('QQ: 3392787816'); return false;">💬 QQ</a>
+            <a href="https://www.newbabyworld.top/?413" target="_blank" class="contact-item" title="推特">新天地</a>
+            <a href="https://www.shireyishunjian.com/main/home.php?mod=space&uid=654761" target="_blank" class="contact-item" title="推特">湿热</a>
+            </div>
+            <p class="about-quote">「三个平台同步更新✨」</p>
+        </div>
+    </div>
+            <main class="posts-section">
             <h2 class="section-title">📝 最新文章</h2>
     <article class="post-item">
     <h3 class="post-title">
