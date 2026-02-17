@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 统计小窝 · 小径分岔的花园</title>
+    <style>
+        /* 和首页一模一样的样式～ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafc;
+            color: #1e1e2f;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
+            padding: 2.8rem 2.5rem;
+        }
+        .page-header {
+            margin-bottom: 2.2rem;
+            border-bottom: 2px solid #f0eef5;
+            padding-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #3e3a5f, #6b4e9e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .back-home a {
+            background: #e4daf2;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            color: #3c3569;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            border: 1px solid #cdbde8;
+        }
+        .back-home a:hover {
+            background: #d3c2f0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: #f8f6ff;
+            border-radius: 24px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border: 1px solid #edeaf5;
+        }
+        .stat-label {
+            font-size: 1rem;
+            color: #6b6b8b;
+            margin-bottom: 0.5rem;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #3e3a5f;
+            line-height: 1.2;
+        }
+        .stat-unit {
+            font-size: 0.9rem;
+            color: #8a7aa9;
+        }
+        .run-time {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #6b4e9e;
+            margin: 0.5rem 0;
+        }
+        .post-list {
+            margin-top: 2.5rem;
+        }
+        .post-list h3 {
+            font-size: 1.5rem;
+            color: #373356;
+            border-left: 6px solid #b8a8e0;
+            padding-left: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .post-word-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 1rem;
+            background: #faf8ff;
+            border-radius: 40px;
+            margin-bottom: 0.5rem;
+        }
+        .post-word-title a {
+            text-decoration: none;
+            color: #4a4270;
+            font-weight: 500;
+        }
+        .post-word-count {
+            color: #7a6aa9;
+            font-size: 0.9rem;
+        }
+        .footer-note {
+            margin-top: 2rem;
+            text-align: center;
+            color: #7b7b9c;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+                /* ===== 高级动效 ===== */
+            
+            /* 卡片初始隐藏，然后滑入 */
+            .stat-card {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: slideUpFade 0.6s ease forwards;
+            }
+            
+            /* 为每个卡片设置不同的延迟，更灵动 */
+            .stat-card:nth-child(1) { animation-delay: 0.1s; }
+            .stat-card:nth-child(2) { animation-delay: 0.2s; }
+            .stat-card:nth-child(3) { animation-delay: 0.3s; }
+            .stat-card:nth-child(4) { animation-delay: 0.4s; }
+            
+            @keyframes slideUpFade {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* 卡片悬停效果 */
+            .stat-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .stat-card:hover {
+                transform: translateY(-6px) scale(1.02);
+                box-shadow: 0 20px 30px -10px rgba(107, 78, 158, 0.3);
+                background: white;
+            }
+            
+            /* 运行时间数字的微光脉冲 */
+            #runDetail {
+                animation: softGlow 2s infinite ease-in-out;
+            }
+            @keyframes softGlow {
+                0%, 100% { color: #6b4e9e; text-shadow: 0 0 5px rgba(107,78,158,0.2); }
+                50% { color: #8f7bbf; text-shadow: 0 0 12px rgba(143,123,191,0.5); }
+            }
+            
+            /* 文章列表逐项滑入 */
+            .post-word-item {
+                opacity: 0;
+                transform: translateX(-10px);
+                animation: slideIn 0.4s ease forwards;
+            }
+            .post-word-item:nth-child(1) { animation-delay: 0.5s; }
+            .post-word-item:nth-child(2) { animation-delay: 0.6s; }
+            /* 如果以后文章变多，可以继续加 delay，或者用 JS 动态计算，现在手动够用 */
+            
+            @keyframes slideIn {
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            /* 文章列表悬停效果 */
+            .post-word-item {
+                transition: background 0.2s ease, transform 0.2s ease;
+            }
+            .post-word-item:hover {
+                background: #efe8ff;
+                transform: scale(1.01) translateX(5px);
+            }
+            
+            /* 页面标题小装饰 */
+            .page-title {
+                position: relative;
+                display: inline-block;
+            }
+            .page-title::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 60px;
+                height: 4px;
+                background: linear-gradient(90deg, #b8a8e0, #6b4e9e);
+                border-radius: 4px;
+                animation: underlineGrow 0.8s ease-out forwards;
+            }
+            @keyframes underlineGrow {
+                from { width: 0; opacity: 0; }
+                to { width: 60px; opacity: 1; }
+            }
+            
+            /* 卡片内数字字体稍微加粗，更醒目 */
+            .stat-number {
+                font-weight: 800;
+                letter-spacing: 1px;
+            }
+            
+            /* 访问量卡片里的隐藏 span 不占位 */
+            #busuanzi_value_site_pv {
+                display: none;
+            }
+     </style>
+    <!-- 引入不蒜子用于访问统计 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">📊 统计小窝</h1>
+            <div class="back-home"><a href="index.html">🏡 回首页</a></div>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">📝 文章总数</div>
+                <div class="stat-number" id="totalPosts">0</div>
+                <div class="stat-unit">篇</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">🔤 总字数</div>
+                <div class="stat-number" id="totalWords">0</div>
+                <div class="stat-unit">字</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">⏳ 运行时长</div>
+                <div class="stat-number" id="runDays">0</div>
+                <div class="run-time" id="runDetail">计算中...</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">👀 总访问量</div>
+                <div class="stat-number" id="visitCount">0</div>
+                <div class="stat-unit">次</div>
+                <!-- 不蒜子隐藏计数，用于显示 -->
+                <span id="busuanzi_value_site_pv" style="display:none;"></span>
+            </div>
+        </div>
+
+        <!-- 每篇文章字数详情 -->
+        <div class="post-list">
+            <h3>📄 文章字数明细</h3>
+            <div id="postWordList"></div>
+        </div>
+
+        <div class="footer-note">
+            ✨ 小花园和你一起慢慢长大 ✨
+        </div>
+    </div>
+
+    <!-- 引入统计逻辑 -->
+    <script src="js/stats.js"></script>
+    <script>
+        // 额外处理不蒜子显示
+        function updateBusuanzi() {
+            const pvSpan = document.getElementById('busuanzi_value_site_pv');
+            if (pvSpan && pvSpan.innerText) {
+                document.getElementById('visitCount').innerText = pvSpan.innerText;
+            } else {
+                setTimeout(updateBusuanzi, 500); // 不蒜子加载需要时间
+            }
+        }
+        updateBusuanzi();
+    </script>
+</body>
+</html>
