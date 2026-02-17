@@ -1,5 +1,5 @@
 // 🌟 小花园开放时间（改成你真正的上线时间！）
-const LAUNCH_TIME = new Date(2026， 2, 16, 12, 0, 0); // 2026年2月16日12:00
+const LAUNCH_TIME = new Date(2026， 1, 16, 12, 0, 0); // 2026年2月16日12:00
 
 // 📚 所有文章的列表（每新增一篇文章就在这里加一条）
 const POSTS = [
@@ -59,8 +59,8 @@ async function calculateStats() {
             totalWords += chineseChars;
             postDetails.push({ title: post.title, url: post.url, words: chineseChars });
         } catch (e) {
-            console.error('获取文章失败:', post.url, e);
-            postDetails.push({ title: post.title, url: post.url, words: 0 });
+            console。error('获取文章失败:', post.url, e);
+            postDetails。push({ title: post.title, url: post.url, words: 0 });
         }
     }
 
