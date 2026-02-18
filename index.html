@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>喹啉氨博客 · 小宝宝的日常</title>
+    <!-- 公共数据（必须先加载） -->
+    <script src="data.js"></script>
     <style>
         * {
             margin: 0;
@@ -27,9 +29,9 @@
         }
         .blog-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             border-bottom: 2px solid #f0f0f3;
-            padding-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
         }
         .blog-title {
             font-size: 2.8rem;
@@ -62,190 +64,114 @@
             border-bottom: 2px solid transparent;
             transition: border-color 0.2s, color 0.2s;
         }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        .stat-card {
-            background: white;
-            border: 2px solid #ffe4e0;
-            border-radius: 12px; /* 修复原1px圆角，匹配博客整体风格 */
-            padding: 0.8rem 0.2rem;
-            text-align: center;
-            font-size: 1rem;
-            color: #4a4a6a; /* 修复原浅灰不可见颜色 */
-        }
-        .stat-card strong {
-            display: block;
-            font-size: 1.6rem;
-            color: #2d2d4a; /* 修复原浅灰不可见颜色 */
-        }
         .nav a:hover {
             border-bottom-color: #8f7bbf;
             color: #2d2d4a;
         }
-        /* 关于我卡片 */
-.about-card {
-    background: #f8f6ff;
-    border-radius: 24px;
-    padding: 2rem;
-    margin-bottom: 3rem;
-    border: 1px solid #edeaf5;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.about-avatar {
-    width: 120px;
-    height: 120px;
-    background: #e3dcf2;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    border: 4px solid white;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-    }
-    .about-info {
-        flex: 1;
-        min-width: 250px;
-    }
-    .about-info h2 {
-        font-size: 2rem;
-        color: #3e3a5f;
-        margin-bottom: 0.5rem;
-    }
-    .about-info p {
-        color: #5a4f7c;
-        margin-bottom: 1rem;
-    }
-    .contact-icons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        margin: 1.2rem 0;
-    }
-    .contact-item {
-        background: white;
-        padding: 0.5rem 1.2rem;
-        border-radius: 40px;
-        border: 1px solid #cdbde8;
-        color: #4a4270;
-        text-decoration: none;
-        font-size: 0.95rem;
-        transition: 0.2s;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-    }
-    .contact-item:hover {
-        background: #efe8ff;
-        transform: scale(1.02);
-        border-color: #9b86c6;
-    }
-    .about-quote {
-        font-style: italic;
-        color: #7a6aa9;
-        border-left: 4px solid #b8a8e0;
-        padding-left: 1rem;
-        margin-top: 1rem;
-    }
-    @media (max-width: 600px) {
-    .about-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.5rem;
-    }
-    .contact-icons {
-        justify-content: center;
-    }
-}
-       /* 关于我卡片 - 紧凑版 */
-    .about-card {
-        background: #f8f6ff;
-        border-radius: 20px;
-        padding: 1.2rem 1.5rem;  /* 减小内边距 */
-        margin-bottom: 2rem;
-        border: 1px solid #edeaf5;
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    .about-avatar {
-        width: 70px;              /* 缩小头像尺寸 */
-        height: 70px;
-        border-radius: 50%;
-        overflow: hidden;          /* 保证图片按容器裁剪 */
-        flex-shrink: 0;
-        border: 3px solid white;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
-    .about-avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;        /* 图片覆盖整个容器，不变形 */
-    }
-    .about-info {
-        flex: 1;
-        min-width: 200px;
-    }
-    .about-info h2 {
-        font-size: 1.5rem;        /* 减小标题字体 */
-        color: #3e3a5f;
-        margin-bottom: 0.2rem;
-    }
-    .about-info p {
-        color: #5a4f7c;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;        /* 缩小简介文字 */
-    }
-    .contact-icons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin: 0.8rem 0;
-    }
-    .contact-item {
-        background: white;
-        padding: 0.3rem 1rem;      /* 减小按钮内边距 */
-        border-radius: 30px;
-        border: 1px solid #cdbde8;
-        color: #4a4270;
-        text-decoration: none;
-        font-size: 0.85rem;        /* 缩小文字 */
-        transition: 0.2s;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-    }
-    .contact-item:hover {
-        background: #efe8ff;
-        transform: scale(1.02);
-        border-color: #9b86c6;
-    }
-    .about-quote {
-        font-style: italic;
-        color: #7a6aa9;
-        border-left: 3px solid #b8a8e0;
-        padding-left: 0.8rem;
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-    }
-    @media (max-width: 500px) {
+
+        /* ===== 关于我卡片（紧凑版） ===== */
         .about-card {
-            flex-direction: column;
-            text-align: center;
-            padding: 1rem;
+            background: #f8f6ff;
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #edeaf5;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .about-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .about-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .about-info {
+            flex: 1;
+            min-width: 200px;
+        }
+        .about-info h2 {
+            font-size: 1.5rem;
+            color: #3e3a5f;
+            margin-bottom: 0.2rem;
+        }
+        .about-info p {
+            color: #5a4f7c;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
         .contact-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+        }
+        .contact-item {
+            background: white;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #cdbde8;
+            color: #4a4270;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .contact-item:hover {
+            background: #efe8ff;
+            transform: scale(1.02);
+            border-color: #9b86c6;
+        }
+        .about-quote {
+            font-style: italic;
+            color: #7a6aa9;
+            border-left: 3px solid #b8a8e0;
+            padding-left: 0.8rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* ===== 分类导航 ===== */
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1rem 0 2rem;
             justify-content: center;
         }
-    } 
+        .category-btn {
+            background: #f0eaf8;
+            border: 1px solid #cdbde8;
+            color: #4a4270;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        .category-btn:hover {
+            background: #e1d5f5;
+            transform: scale(1.02);
+        }
+        .category-btn.active {
+            background: #6b4e9e;
+            color: white;
+            border-color: #6b4e9e;
+        }
+
+        /* ===== 文章列表 ===== */
         .posts-section {
             margin: 2.5rem 0;
         }
@@ -256,6 +182,9 @@
             margin-bottom: 1.5rem;
             padding-left: 1rem;
             border-left: 6px solid #b4a5d5;
+        }
+        .post-list-container {
+            margin-top: 1rem;
         }
         .post-item {
             margin-bottom: 2.5rem;
@@ -339,6 +268,8 @@
             font-weight: 500;
             letter-spacing: 0.3px;
         }
+
+        /* ===== 页脚 ===== */
         .blog-footer {
             margin-top: 3.5rem;
             padding-top: 1.8rem;
@@ -372,6 +303,14 @@
             .blog-title {
                 font-size: 2.2rem;
             }
+            .about-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            .contact-icons {
+                justify-content: center;
+            }
             .post-item {
                 padding: 1.2rem 1rem;
             }
@@ -382,11 +321,12 @@
                 gap: 1rem;
             }
         }
-            </style>
-            </head>
-            <body>
-            <div class="container">
-            <header class="blog-header">
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 博客头部 -->
+        <header class="blog-header">
             <h1 class="blog-title">✧小宝宝的天地✧</h1>
             <div class="blog-subtitle">—— 小宝宝的日常٩(๑^o^๑)۶</div>
             <nav class="nav">
@@ -395,67 +335,41 @@
                 <a href="归档.html">归档</a>
                 <a href="统计.html">📊 统计</a>
             </nav>
-           </header>
-    <!-- 关于我卡片 - 紧凑版，带真实头像 -->
-    <div class="about-card">
-        <div class="about-avatar">
-            <img src="images/touxiang.png" alt="喹啉氨头像">
-        </div>
-        <div class="about-info">
-            <h2>喹啉氨宝宝</h2>
-            <p>2008年出生 · DL · 害羞黏人</p>
-            <div class="contact-icons">
-            <a href="mailto:kuilinan@qq.com" class="contact-item" title="邮箱">📧 邮箱</a>
-            <a href="https://twitter.com/kuilinan" target="_blank" class="contact-item" title="推特">🐦 推特</a>
-            <a href="#" class="contact-item" title="QQ" onclick="alert('QQ: 3392787816'); return false;">💬 QQ</a>
-            <a href="https://www.newbabyworld.top/?413" target="_blank" class="contact-item" title="推特">新天地</a>
-            <a href="https://www.shireyishunjian.com/main/home.php?mod=space&uid=654761" target="_blank" class="contact-item" title="推特">湿热</a>
+        </header>
+
+        <!-- 关于我卡片（带头像） -->
+        <div class="about-card">
+            <div class="about-avatar">
+                <img src="touxiang.jpg" alt="喹啉氨头像">
             </div>
-            <p class="about-quote">「三个平台同步更新✨」</p>
+            <div class="about-info">
+                <h2>喹啉氨宝宝</h2>
+                <p>2008年出生 · DL · 害羞黏人</p>
+                <div class="contact-icons">
+                    <a href="mailto:kuilinan@qq.com" class="contact-item" title="邮箱">📧 邮箱</a>
+                    <a href="https://twitter.com/kuilinan" target="_blank" class="contact-item" title="推特">🐦 推特</a>
+                    <a href="#" class="contact-item" title="QQ" onclick="alert('QQ: 3392787816'); return false;">💬 QQ</a>
+                    <span class="contact-item" title="湿热">🌊 KLqqq</span>
+                    <span class="contact-item" title="宝宝新天地">🍼 宇川宝宝</span>
+                </div>
+                <p class="about-quote">「三个平台同步更新✨」</p>
+            </div>
         </div>
-    </div>
-            <main class="posts-section">
+
+        <!-- 文章区域（分类 + 列表） -->
+        <main class="posts-section">
+            <!-- 分类导航容器（JS会填充） -->
+            <div id="categoryNav" class="category-nav"></div>
+
             <h2 class="section-title">📝 最新文章</h2>
-    <article class="post-item">
-    <h3 class="post-title">
-        <a href="posts/博客上线啦～.html">🎉 小花园开张啦 · 博客上线纪念 🎉</a>
-    </h3>
-    <div class="post-meta">
-        <span class="post-date">🗓️2026-02-16</span>
-        <span>📌 宝宝日记 · 庆祝</span>
-    </div>
-    <p class="post-excerpt">
-        今天我的小博客终于开张啦！以后会在这里写宝宝日记、ABDL碎碎念，还有三个平台同步更新哦～快来小角落坐坐吧 (⁄ ⁄•⁄ω⁄•⁄ ⁄)
-    </p>
-    <a href="posts/上线.html" class="read-more">来看看开张典礼 →</a>
-    <div class="tag-list">
-        <span class="tag">#博客上线</span>
-        <span class="tag">#三个平台</span>
-    </div>
-</article>
-        <!-- 博客主体：修复原代码缺失的</main>闭合标签 -->
-            <article class="post-item">
-                <h3 class="post-title">
-                    <a href="posts/自我介绍-温暖小角落.html">🍼 一枚超级小宝宝的自我介绍 · 想认识温暖的你 ✨</a>
-                </h3>
-                <div class="post-meta">
-                    <span class="post-date">📅 2025-06-15</span>
-                    <span>📌 宝宝日记 · 交友</span>
-                </div>
-                <p class="post-excerpt">
-                    嗨大家好呀～我是一枚2024年11月来到湿热的超级小宝宝！有点害羞地来寻找同龄玩伴… 悄悄告诉你，「喹啉氨」才是我的大名，之后会在三个平台同步更新哦！(✧ω✧)
-                </p>
-                <a href="posts/自我介绍-温暖小角落.html" class="read-more">来看看小宝宝 →</a>
-                <div class="tag-list">
-                    <span class="tag">#ABDL</span>
-                    <span class="tag">#DL</span>
-                    <span class="tag">#三个平台</span>
-                </div>
-            </article>
+
+            <!-- 文章列表容器（JS会填充） -->
+            <div id="postList" class="post-list-container"></div>
         </main>
-        <!-- 页脚：保留不蒜子PV+UV双统计 -->
+
+        <!-- 页脚 -->
         <footer class="blog-footer">
-            <small>© 2025 喹啉氨 </small>
+            <small>© 2025 喹啉氨</small>
             <div style="margin: 0.5rem 0; color: #8a7aa9;">
                 <span>🌐 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
                 <span style="margin:0 0.5rem">|</span>
@@ -480,7 +394,76 @@
             }
         })();
     </script>
-                <!-- 不蒜子核心脚本：极简免费，无需注册（必须放在body末尾） -->
-                <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- 不蒜子统计 -->
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- 分类导航和动态文章列表（依赖 data.js） -->
+    <script>
+        (function() {
+            // 确保数据已加载
+            if (typeof POSTS === 'undefined' || POSTS.length === 0) {
+                console.error('没有文章数据');
+                return;
+            }
+
+            const allPosts = POSTS;
+
+            // 获取所有分类（去重）
+            const categories = ['全部', ...new Set(allPosts.map(p => p.category))];
+
+            // 渲染分类按钮
+            const categoryNav = document.getElementById('categoryNav');
+            if (categoryNav) {
+                categoryNav.innerHTML = categories.map(cat => 
+                    `<button class="category-btn ${cat === '全部' ? 'active' : ''}" data-category="${cat}">${cat}</button>`
+                ).join('');
+            }
+
+            // 渲染文章列表
+            function renderPosts(category = '全部') {
+                const postList = document.getElementById('postList');
+                if (!postList) return;
+
+                const filtered = category === '全部' ? allPosts : allPosts.filter(p => p.category === category);
+
+                if (filtered.length === 0) {
+                    postList.innerHTML = '<p style="text-align:center; color:#7a7aa9;">✨ 这个分类还没有文章哦～</p>';
+                    return;
+                }
+
+                postList.innerHTML = filtered.map(post => `
+                    <article class="post-item">
+                        <h3 class="post-title">
+                            <a href="${post.url}">${post.title}</a>
+                        </h3>
+                        <div class="post-meta">
+                            <span class="post-date">🗓️ ${post.date}</span>
+                            <span>📌 ${post.category}</span>
+                        </div>
+                        <p class="post-excerpt">点击标题阅读全文～</p>
+                        <a href="${post.url}" class="read-more">继续阅读 →</a>
+                        <div class="tag-list">
+                            <span class="tag">#${post.category}</span>
+                        </div>
+                    </article>
+                `).join('');
+            }
+
+            // 初始渲染
+            renderPosts('全部');
+
+            // 分类点击事件
+            if (categoryNav) {
+                categoryNav.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('category-btn')) {
+                        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                        renderPosts(e.target.dataset.category);
+                    }
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
