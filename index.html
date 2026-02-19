@@ -439,7 +439,9 @@
                             <span class="post-date">🗓️ ${post.date}</span>
                             <span>📌 ${post.category}</span>
                         </div>
-                        <p class="post-excerpt">点击标题阅读全文～</p>
+                        <p class="post-excerpt">
+                            ${post.excerpt ? post.excerpt : '点击标题阅读全文～'}
+                        </p>
                         <a href="${post.url}" class="read-more">继续阅读 →</a>
                         <div class="tag-list">
                             <span class="tag">#${post.category}</span>
