@@ -7,323 +7,71 @@
     <!-- 公共数据（必须先加载） -->
     <script src="data.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #fafafc;
-            color: #1e1e2f;
-            line-height: 1.6;
-            padding: 2rem 1rem;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
-            padding: 2.5rem 2rem;
-        }
-        .blog-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            border-bottom: 2px solid #f0f0f3;
-            padding-bottom: 1.8rem;
-        }
-        .blog-title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #2d2d4a, #5a4f7c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.25rem;
-        }
-        .blog-subtitle {
-            font-size: 1.1rem;
-            color: #6b6b8b;
-            font-weight: 400;
-            margin-top: 0.25rem;
-        }
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.5rem 0 0.5rem;
-            flex-wrap: wrap;
-        }
-        .nav a {
-            text-decoration: none;
-            color: #4a4a6a;
-            font-weight: 500;
-            font-size: 1.1rem;
-            padding: 0.3rem 0;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.2s, color 0.2s;
-        }
-        .nav a:hover {
-            border-bottom-color: #8f7bbf;
-            color: #2d2d4a;
-        }
+        /* 样式部分保持不变，和之前一样 */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #fafafc; color: #1e1e2f; line-height:1.6; padding:2rem 1rem; }
+        .container { max-width:800px; margin:0 auto; background:white; border-radius:24px; box-shadow:0 20px 40px -12px rgba(0,0,0,0.1); padding:2.5rem 2rem; }
+        .blog-header { text-align:center; margin-bottom:3rem; border-bottom:2px solid #f0f0f3; padding-bottom:1.8rem; }
+        .blog-title { font-size:2.8rem; font-weight:700; background:linear-gradient(135deg,#2d2d4a,#5a4f7c); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:0.25rem; }
+        .blog-subtitle { font-size:1.1rem; color:#6b6b8b; font-weight:400; margin-top:0.25rem; }
+        .nav { display:flex; justify-content:center; gap:2rem; margin:1.5rem 0 0.5rem; flex-wrap:wrap; }
+        .nav a { text-decoration:none; color:#4a4a6a; font-weight:500; font-size:1.1rem; padding:0.3rem 0; border-bottom:2px solid transparent; transition:border-color 0.2s, color 0.2s; }
+        .nav a:hover { border-bottom-color:#8f7bbf; color:#2d2d4a; }
 
-        /* ===== 关于我卡片（还原旧版本样式） ===== */
-        .about-card {
-            background: #f8f6ff;
-            border-radius: 24px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            border: 1px solid #edeaf5;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .about-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 4px solid white;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-        }
-        .about-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .about-info {
-            flex: 1;
-            min-width: 250px;
-        }
-        .about-info h2 {
-            font-size: 2rem;
-            color: #3e3a5f;
-            margin-bottom: 0.5rem;
-        }
-        .about-info p {
-            color: #5a4f7c;
-            margin-bottom: 1rem;
-        }
-        .contact-icons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 1.2rem 0;
-        }
-        .contact-item {
-            background: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid #cdbde8;
-            color: #4a4270;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        .contact-item:hover {
-            background: #efe8ff;
-            transform: scale(1.02);
-            border-color: #9b86c6;
-        }
-        .about-quote {
-            font-style: italic;
-            color: #7a6aa9;
-            border-left: 4px solid #b8a8e0;
-            padding-left: 1rem;
-            margin-top: 1rem;
-        }
+        /* 关于我卡片 */
+        .about-card { background:#f8f6ff; border-radius:24px; padding:2rem; margin-bottom:3rem; border:1px solid #edeaf5; display:flex; gap:2rem; align-items:center; flex-wrap:wrap; }
+        .about-avatar { width:120px; height:120px; border-radius:50%; overflow:hidden; flex-shrink:0; border:4px solid white; box-shadow:0 8px 16px rgba(0,0,0,0.05); }
+        .about-avatar img { width:100%; height:100%; object-fit:cover; }
+        .about-info { flex:1; min-width:250px; }
+        .about-info h2 { font-size:2rem; color:#3e3a5f; margin-bottom:0.5rem; }
+        .about-info p { color:#5a4f7c; margin-bottom:1rem; }
+        .contact-icons { display:flex; flex-wrap:wrap; gap:0.8rem; margin:1.2rem 0; }
+        .contact-item { background:white; padding:0.5rem 1.2rem; border-radius:40px; border:1px solid #cdbde8; color:#4a4270; text-decoration:none; font-size:0.95rem; transition:0.2s; display:inline-flex; align-items:center; gap:0.4rem; }
+        .contact-item:hover { background:#efe8ff; transform:scale(1.02); border-color:#9b86c6; }
+        .about-quote { font-style:italic; color:#7a6aa9; border-left:4px solid #b8a8e0; padding-left:1rem; margin-top:1rem; }
 
-        /* ===== 分类导航 ===== */
-        .category-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 1rem 0 2rem;
-            justify-content: center;
-        }
-        .category-btn {
-            background: #f0eaf8;
-            border: 1px solid #cdbde8;
-            color: #4a4270;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: 500;
-        }
-        .category-btn:hover {
-            background: #e1d5f5;
-            transform: scale(1.02);
-        }
-        .category-btn.active {
-            background: #6b4e9e;
-            color: white;
-            border-color: #6b4e9e;
-        }
+        /* 分类导航 */
+        .category-nav { display:flex; flex-wrap:wrap; gap:0.8rem; margin:1rem 0 2rem; justify-content:center; }
+        .category-btn { background:#f0eaf8; border:1px solid #cdbde8; color:#4a4270; padding:0.5rem 1.5rem; border-radius:40px; font-size:1rem; cursor:pointer; transition:0.2s; font-weight:500; }
+        .category-btn:hover { background:#e1d5f5; transform:scale(1.02); }
+        .category-btn.active { background:#6b4e9e; color:white; border-color:#6b4e9e; }
 
-        /* ===== 文章列表 ===== */
-        .posts-section {
-            margin: 2.5rem 0;
-        }
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #33334e;
-            margin-bottom: 1.5rem;
-            padding-left: 1rem;
-            border-left: 6px solid #b4a5d5;
-        }
-        .post-list-container {
-            margin-top: 1rem;
-        }
-        .post-item {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem 1.8rem;
-            background: #f8f6ff;
-            border-radius: 20px;
-            transition: transform 0.15s, box-shadow 0.15s;
-            border: 1px solid #edeaf5;
-        }
-        .post-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px -10px rgba(80, 60, 120, 0.15);
-            background: white;
-        }
-        .post-title {
-            font-size: 1.8rem;
-            margin-bottom: 0.4rem;
-            line-height: 1.3;
-        }
-        .post-title a {
-            text-decoration: none;
-            color: #1e1e2f;
-            font-weight: 600;
-        }
-        .post-title a:hover {
-            color: #6b4e9e;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
-        .post-meta {
-            font-size: 0.9rem;
-            color: #7a7a9e;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .post-date {
-            background: #e3dcf2;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            color: #3e3a5f;
-            font-weight: 500;
-            font-size: 0.8rem;
-            display: inline-block;
-        }
-        .post-excerpt {
-            color: #3d3d55;
-            margin-bottom: 1rem;
-            font-size: 1.05rem;
-        }
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: none;
-            border: none;
-            color: #6b4e9e;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            text-decoration: none;
-            padding: 0.2rem 0;
-            border-bottom: 2px solid transparent;
-        }
-        .read-more:hover {
-            border-bottom-color: #9b86c6;
-        }
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .tag {
-            background: #e7e1f5;
-            color: #46426b;
-            padding: 0.2rem 0.9rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
+        /* 文章列表 */
+        .posts-section { margin:2.5rem 0; }
+        .section-title { font-size:1.8rem; font-weight:600; color:#33334e; margin-bottom:1.5rem; padding-left:1rem; border-left:6px solid #b4a5d5; }
+        .post-list-container { margin-top:1rem; }
+        .post-item { margin-bottom:2.5rem; padding:1.5rem 1.8rem; background:#f8f6ff; border-radius:20px; transition:transform 0.15s, box-shadow 0.15s; border:1px solid #edeaf5; }
+        .post-item:hover { transform:translateY(-3px); box-shadow:0 12px 24px -10px rgba(80,60,120,0.15); background:white; }
+        .post-title { font-size:1.8rem; margin-bottom:0.4rem; line-height:1.3; }
+        .post-title a { text-decoration:none; color:#1e1e2f; font-weight:600; }
+        .post-title a:hover { color:#6b4e9e; text-decoration:underline; text-underline-offset:4px; }
+        .post-meta { font-size:0.9rem; color:#7a7a9e; margin-bottom:0.8rem; display:flex; align-items:center; gap:1rem; }
+        .post-date { background:#e3dcf2; padding:0.2rem 0.8rem; border-radius:30px; color:#3e3a5f; font-weight:500; font-size:0.8rem; display:inline-block; }
+        .post-excerpt { color:#3d3d55; margin-bottom:1rem; font-size:1.05rem; }
+        .read-more { display:inline-flex; align-items:center; gap:0.3rem; background:none; border:none; color:#6b4e9e; font-weight:600; font-size:0.95rem; cursor:pointer; text-decoration:none; padding:0.2rem 0; border-bottom:2px solid transparent; }
+        .read-more:hover { border-bottom-color:#9b86c6; }
+        .tag-list { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1rem; }
+        .tag { background:#e7e1f5; color:#46426b; padding:0.2rem 0.9rem; border-radius:30px; font-size:0.75rem; font-weight:500; letter-spacing:0.3px; }
 
-        /* ===== 页脚 ===== */
-        .blog-footer {
-            margin-top: 3.5rem;
-            padding-top: 1.8rem;
-            border-top: 2px solid #efecf5;
-            text-align: center;
-            color: #7b7b9c;
-            font-size: 0.95rem;
-        }
-        .blog-footer small {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.8rem;
-            margin: 1rem 0 0.5rem;
-        }
-        .footer-links a {
-            color: #5a4f7c;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 500px) {
-            .container {
-                padding: 1.5rem 1rem;
-            }
-            .blog-title {
-                font-size: 2.2rem;
-            }
-            .about-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-            }
-            .contact-icons {
-                justify-content: center;
-            }
-            .post-item {
-                padding: 1.2rem 1rem;
-            }
-            .post-title {
-                font-size: 1.5rem;
-            }
-            .nav {
-                gap: 1rem;
-            }
+        /* 页脚 */
+        .blog-footer { margin-top:3.5rem; padding-top:1.8rem; border-top:2px solid #efecf5; text-align:center; color:#7b7b9c; font-size:0.95rem; }
+        .blog-footer small { display:block; margin-bottom:0.5rem; }
+        .footer-links { display:flex; justify-content:center; gap:1.8rem; margin:1rem 0 0.5rem; }
+        .footer-links a { color:#5a4f7c; text-decoration:none; font-weight:500; }
+        .footer-links a:hover { text-decoration:underline; }
+        @media (max-width:500px) {
+            .container { padding:1.5rem 1rem; }
+            .blog-title { font-size:2.2rem; }
+            .about-card { flex-direction:column; text-align:center; padding:1.5rem; }
+            .contact-icons { justify-content:center; }
+            .post-item { padding:1.2rem 1rem; }
+            .post-title { font-size:1.5rem; }
+            .nav { gap:1rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 博客头部 -->
         <header class="blog-header">
             <h1 class="blog-title">✧小宝宝的天地✧</h1>
             <div class="blog-subtitle">—— 小宝宝的日常٩(๑^o^๑)۶</div>
@@ -335,7 +83,7 @@
             </nav>
         </header>
 
-        <!-- 关于我卡片（带头像，使用旧版本样式） -->
+        <!-- 关于我卡片 -->
         <div class="about-card">
             <div class="about-avatar">
                 <img src="images/touxiang.png" alt="喹啉氨头像">
@@ -354,21 +102,17 @@
             </div>
         </div>
 
-        <!-- 文章区域（分类 + 列表） -->
+        <!-- 文章区域 -->
         <main class="posts-section">
-            <!-- 分类导航容器（JS会填充） -->
             <div id="categoryNav" class="category-nav"></div>
-
             <h2 class="section-title">📝 最新文章</h2>
-
-            <!-- 文章列表容器（JS会填充） -->
             <div id="postList" class="post-list-container"></div>
         </main>
 
         <!-- 页脚 -->
         <footer class="blog-footer">
             <small>© 2025 喹啉氨</small>
-            <div style="margin: 0.5rem 0; color: #8a7aa9;">
+            <div style="margin:0.5rem 0; color:#8a7aa9;">
                 <span>🌐 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
                 <span style="margin:0 0.5rem">|</span>
                 <span>👥 独立访客 <span id="busuanzi_value_site_uv"></span> 人</span>
@@ -382,7 +126,7 @@
         </footer>
     </div>
 
-    <!-- 自动更新页脚年份脚本 -->
+    <!-- 自动更新年份 -->
     <script>
         (function() {
             const yearSpan = document.querySelector('.blog-footer small');
@@ -396,21 +140,18 @@
     <!-- 不蒜子统计 -->
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-    <!-- 分类导航和动态文章列表（依赖 data.js） -->
+    <!-- 分类导航和动态文章列表 -->
     <script>
         (function() {
-            // 确保数据已加载
             if (typeof POSTS === 'undefined' || POSTS.length === 0) {
                 console.error('没有文章数据');
+                document.getElementById('postList').innerHTML = '<p style="text-align:center; color:#7a7aa9;">⚠️ 文章数据加载失败</p>';
                 return;
             }
 
             const allPosts = POSTS;
-
-            // 获取所有分类（去重）
             const categories = ['全部', ...new Set(allPosts.map(p => p.category))];
 
-            // 渲染分类按钮
             const categoryNav = document.getElementById('categoryNav');
             if (categoryNav) {
                 categoryNav.innerHTML = categories.map(cat => 
@@ -418,42 +159,30 @@
                 ).join('');
             }
 
-            // 渲染文章列表
             function renderPosts(category = '全部') {
                 const postList = document.getElementById('postList');
                 if (!postList) return;
-
                 const filtered = category === '全部' ? allPosts : allPosts.filter(p => p.category === category);
-
                 if (filtered.length === 0) {
                     postList.innerHTML = '<p style="text-align:center; color:#7a7aa9;">✨ 这个分类还没有文章哦～</p>';
                     return;
                 }
-
                 postList.innerHTML = filtered.map(post => `
                     <article class="post-item">
-                        <h3 class="post-title">
-                            <a href="${post.url}">${post.title}</a>
-                        </h3>
+                        <h3 class="post-title"><a href="${post.url}">${post.title}</a></h3>
                         <div class="post-meta">
                             <span class="post-date">🗓️ ${post.date}</span>
                             <span>📌 ${post.category}</span>
                         </div>
-                        <p class="post-excerpt">
-                            ${post.excerpt ? post.excerpt : '点击标题阅读全文～'}
-                        </p>
+                        <p class="post-excerpt">${post.excerpt || '点击标题阅读全文～'}</p>
                         <a href="${post.url}" class="read-more">继续阅读 →</a>
-                        <div class="tag-list">
-                            <span class="tag">#${post.category}</span>
-                        </div>
+                        <div class="tag-list"><span class="tag">#${post.category}</span></div>
                     </article>
                 `).join('');
             }
 
-            // 初始渲染
             renderPosts('全部');
 
-            // 分类点击事件
             if (categoryNav) {
                 categoryNav.addEventListener('click', (e) => {
                     if (e.target.classList.contains('category-btn')) {
