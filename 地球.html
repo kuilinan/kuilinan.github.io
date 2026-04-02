@@ -2,160 +2,73 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>旋转线框地球 · 经典风格</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>1KB 旋转地球 - 自动刷新版</title>
     <style>
-        body {
+        * {
             margin: 0;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
             background-color: black;
-            color: #0f0;
-            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
         canvas {
             display: block;
+            width: auto;
+            height: 90vh;          /* 横向显示：高度占满大部分视口，宽度自动保持正方形 */
+            max-width: 95vw;
+            background: black;
+            border-radius: 0;
         }
+        /* 可选：在角落显示刷新提示 */
         .info {
-            position: absolute;
+            position: fixed;
             bottom: 12px;
             left: 12px;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 12px;
             background: rgba(0,0,0,0.6);
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 12px;
-            pointer-events: none;
             z-index: 10;
+            pointer-events: none;
             backdrop-filter: blur(4px);
+        }
+        .refresh-note {
+            position: fixed;
+            bottom: 12px;
+            right: 12px;
+            color: #ffaa00;
+            font-family: monospace;
+            font-size: 11px;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 10;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <canvas id="globeCanvas"></canvas>
-    <div class="info">⚡ 线框地球 | 自动旋转 | 经典风格</div>
+    <canvas id="c"></canvas>
+    <div class="info">⚡ 1KB 旋转地球 | JS1K 经典作品</div>
+    <div class="refresh-note">🔄 每秒自动刷新，保持地球持续旋转</div>
+
     <script>
-        (function() {
-            const canvas = document.getElementById('globeCanvas');
-            const ctx = canvas.getContext('2d');
+        // 1KB 地球原代码（完全保留）
+        eval(z = 'p = "<" + "pre>" /*  ,.oq#+ ,._, */; for (y in n = "zw24l6k\\ 4e3t4jnt4qj24xh2 x/* =<,m#F^ A W###q. */42kty24wrt413n243n\\ 9h243pdxt41csb yz/* #K q##H######Am */43iyb6k43pk7243nm\\ r24".split(4)) { /* dP cpq#q##########b, */ for (a in t = parseInt(n[y], 36) + /* p##@###YG=[#######y */ (e = x = r = [])) for (r = !r, i = 0; t[a /* d#qg `*PWo##q#######D */] > i; i += .05) with (Math) x -= /* aem1k.com Q###KWR#### W[ */.05, 0 > cos(o = new Date / 1e3 /* .Q#########Md#.###OP A@ , */ + x / PI) && (e[~ ~ (32 * sin(o) * /* , (W#####Xx######.P^ T % */ sin(.5 + y / 7)) + 60] = -~ r); /* #y `^TqW####P###BP */ for (x = 0; 122 > x;) p += " *#" /* b. OQ####x#K */ [e[x++] + e[x++]] || (S = ("eval" /* l `X#####D , */ + "(z=\'" + z.split(B = "\\\\"). /* G####B" # */ join(B + B).split(Q = "\'").join(B + Q /* VQBP` */) + Q + ")//m1k")[x / 2 + 61 * y - 1]).fontcolor /* TP */(/\\w/.test(S) && "# 03B"); document.body.innerHTML = p += B + "\\n"} setTimeout(z)') // m1k
 
-            let width, height;
-            let angle = 0;          // 旋转角度
-            const rotSpeed = 0.008;  // 旋转速度
-
-            // 地球的经纬度网格点 (经度 0~360, 纬度 -85~85 避免极点密集)
-            const lonStep = 15;      // 经度步长 (度)
-            const latStep = 15;      // 纬度步长 (度)
-            const lons = [];
-            for (let lon = 0; lon <= 360; lon += lonStep) lons.push(lon * Math.PI / 180);
-            const lats = [];
-            for (let lat = -75; lat <= 75; lat += latStep) lats.push(lat * Math.PI / 180);
-
-            // 将球面上的点 (lon, lat) 投影到 canvas 坐标 (透视投影)
-            function project(lon, lat, radius, rotAngle) {
-                // 绕 Y 轴旋转
-                const x0 = radius * Math.cos(lat) * Math.cos(lon + rotAngle);
-                const z0 = radius * Math.cos(lat) * Math.sin(lon + rotAngle);
-                const y0 = radius * Math.sin(lat);
-                // 简单透视: 相机位于 z = 3, 投影到 z=0 平面
-                const distance = 3;
-                const perspective = distance / (distance + z0);
-                const x = x0 * perspective;
-                const y = y0 * perspective;
-                return { x, y };
-            }
-
-            function resize() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-            }
-
-            function draw() {
-                if (!ctx) return;
-                ctx.clearRect(0, 0, width, height);
-                ctx.save();
-                ctx.translate(width / 2, height / 2);
-                ctx.strokeStyle = '#0f0';
-                ctx.lineWidth = 1.2;
-                ctx.shadowBlur = 0;
-
-                const radius = Math.min(width, height) * 0.35;
-
-                // 1. 绘制经线 (固定经度，连接不同纬度)
-                for (let i = 0; i < lons.length; i++) {
-                    const lon = lons[i];
-                    ctx.beginPath();
-                    let first = true;
-                    for (let j = 0; j < lats.length; j++) {
-                        const lat = lats[j];
-                        const { x, y } = project(lon, lat, radius, angle);
-                        // 只绘制正面 (z0 > -0.3 避免背面线条穿插)
-                        const z0 = radius * Math.cos(lat) * Math.sin(lon + angle);
-                        if (z0 > -0.3) {
-                            if (first) {
-                                ctx.moveTo(x, y);
-                                first = false;
-                            } else {
-                                ctx.lineTo(x, y);
-                            }
-                        } else {
-                            first = true;
-                        }
-                    }
-                    ctx.stroke();
-                }
-
-                // 2. 绘制纬线 (固定纬度，连接不同经度)
-                for (let i = 0; i < lats.length; i++) {
-                    const lat = lats[i];
-                    ctx.beginPath();
-                    let first = true;
-                    for (let j = 0; j < lons.length; j++) {
-                        const lon = lons[j];
-                        const { x, y } = project(lon, lat, radius, angle);
-                        const z0 = radius * Math.cos(lat) * Math.sin(lon + angle);
-                        if (z0 > -0.3) {
-                            if (first) {
-                                ctx.moveTo(x, y);
-                                first = false;
-                            } else {
-                                ctx.lineTo(x, y);
-                            }
-                        } else {
-                            first = true;
-                        }
-                    }
-                    ctx.stroke();
-                }
-
-                // 3. 添加一些随机星星 (背景)
-                ctx.fillStyle = '#fff';
-                for (let i = 0; i < 300; i++) {
-                    if (i % 2 === 0) continue; // 复用已有星星点
-                    const sx = (i * 131) % width - width/2;
-                    const sy = (i * 253) % height - height/2;
-                    ctx.fillRect(sx, sy, 1, 1);
-                }
-                // 简单随机星星（更自然）
-                for (let i = 0; i < 200; i++) {
-                    const sx = (Math.random() - 0.5) * width;
-                    const sy = (Math.random() - 0.5) * height;
-                    ctx.fillRect(sx, sy, 1, 1);
-                }
-
-                ctx.restore();
-
-                // 更新旋转角度
-                angle += rotSpeed;
-                requestAnimationFrame(draw);
-            }
-
-            window.addEventListener('resize', () => {
-                resize();
-            });
-            resize();
-            draw();
-        })();
+        // 每秒强制刷新页面，让地球重新开始转动（实现“持续旋转”效果）
+        setInterval(function() {
+            location.reload();
+        }, 1000);
     </script>
 </body>
 </html>
