@@ -2,73 +2,47 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>1KB 旋转地球 - 自动刷新版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1KB 旋转地球</title>
     <style>
-        * {
+        /* 只做最基本的控制：黑色背景，地球居中，允许水平滚动（如果太宽） */
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
             background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
         }
-        canvas {
-            display: block;
-            width: auto;
-            height: 90vh;          /* 横向显示：高度占满大部分视口，宽度自动保持正方形 */
-            max-width: 95vw;
-            background: black;
-            border-radius: 0;
-        }
-        /* 可选：在角落显示刷新提示 */
-        .info {
-            position: fixed;
-            bottom: 12px;
-            left: 12px;
-            color: #0f0;
+        pre {
+            margin: 0;
+            padding: 10px;
+            color: #0f0;          /* 绿色文字，与原风格一致 */
+            overflow-x: auto;     /* 如果地球太宽，可以横向滚动，不会破坏形状 */
+            white-space: pre;     /* 保留原格式，不换行 */
             font-family: monospace;
-            font-size: 12px;
-            background: rgba(0,0,0,0.6);
-            padding: 4px 10px;
-            border-radius: 20px;
-            z-index: 10;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
+            font-size: 14px;      /* 固定较小字体，避免占满全屏 */
         }
-        .refresh-note {
-            position: fixed;
-            bottom: 12px;
-            right: 12px;
-            color: #ffaa00;
-            font-family: monospace;
-            font-size: 11px;
-            background: rgba(0,0,0,0.6);
-            padding: 4px 10px;
-            border-radius: 20px;
-            z-index: 10;
-            pointer-events: none;
+        /* 在宽屏上稍微增大字体，但限制最大 */
+        @media (min-width: 1200px) {
+            pre {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
-    <canvas id="c"></canvas>
-    <div class="info">⚡ 1KB 旋转地球 | JS1K 经典作品</div>
-    <div class="refresh-note">🔄 每秒自动刷新，保持地球持续旋转</div>
-
-    <script>
-        // 1KB 地球原代码（完全保留）
-        eval(z = 'p = "<" + "pre>" /*  ,.oq#+ ,._, */; for (y in n = "zw24l6k\\ 4e3t4jnt4qj24xh2 x/* =<,m#F^ A W###q. */42kty24wrt413n243n\\ 9h243pdxt41csb yz/* #K q##H######Am */43iyb6k43pk7243nm\\ r24".split(4)) { /* dP cpq#q##########b, */ for (a in t = parseInt(n[y], 36) + /* p##@###YG=[#######y */ (e = x = r = [])) for (r = !r, i = 0; t[a /* d#qg `*PWo##q#######D */] > i; i += .05) with (Math) x -= /* aem1k.com Q###KWR#### W[ */.05, 0 > cos(o = new Date / 1e3 /* .Q#########Md#.###OP A@ , */ + x / PI) && (e[~ ~ (32 * sin(o) * /* , (W#####Xx######.P^ T % */ sin(.5 + y / 7)) + 60] = -~ r); /* #y `^TqW####P###BP */ for (x = 0; 122 > x;) p += " *#" /* b. OQ####x#K */ [e[x++] + e[x++]] || (S = ("eval" /* l `X#####D , */ + "(z=\'" + z.split(B = "\\\\"). /* G####B" # */ join(B + B).split(Q = "\'").join(B + Q /* VQBP` */) + Q + ")//m1k")[x / 2 + 61 * y - 1]).fontcolor /* TP */(/\\w/.test(S) && "# 03B"); document.body.innerHTML = p += B + "\\n"} setTimeout(z)') // m1k
-
-        // 每秒强制刷新页面，让地球重新开始转动（实现“持续旋转”效果）
-        setInterval(function() {
-            location.reload();
-        }, 1000);
-    </script>
+<script>
+    // 首次访问提示（只弹一次）
+    if (!localStorage.getItem('earth_alert_shown')) {
+        alert('本地球可能在您的浏览器上无法自动旋转，请不断刷新网页来解决。');
+        localStorage.setItem('earth_alert_shown', 'true');
+    }
+</script>
+<script>
+// 原始 1KB 地球代码（完全未改动）
+eval(z = 'p = "<" + "pre>" /*  ,.oq#+ ,._, */; for (y in n = "zw24l6k\\ 4e3t4jnt4qj24xh2 x/* =<,m#F^ A W###q. */42kty24wrt413n243n\\ 9h243pdxt41csb yz/* #K q##H######Am */43iyb6k43pk7243nm\\ r24".split(4)) { /* dP cpq#q##########b, */ for (a in t = parseInt(n[y], 36) + /* p##@###YG=[#######y */ (e = x = r = [])) for (r = !r, i = 0; t[a /* d#qg `*PWo##q#######D */] > i; i += .05) with (Math) x -= /* aem1k.com Q###KWR#### W[ */.05, 0 > cos(o = new Date / 1e3 /* .Q#########Md#.###OP A@ , */ + x / PI) && (e[~ ~ (32 * sin(o) * /* , (W#####Xx######.P^ T % */ sin(.5 + y / 7)) + 60] = -~ r); /* #y `^TqW####P###BP */ for (x = 0; 122 > x;) p += " *#" /* b. OQ####x#K */ [e[x++] + e[x++]] || (S = ("eval" /* l `X#####D , */ + "(z=\'" + z.split(B = "\\\\"). /* G####B" # */ join(B + B).split(Q = "\'").join(B + Q /* VQBP` */) + Q + ")//m1k")[x / 2 + 61 * y - 1]).fontcolor /* TP */(/\\w/.test(S) && "# 03B"); document.body.innerHTML = p += B + "\\n"} setTimeout(z)') // m1k
+</script>
 </body>
 </html>
