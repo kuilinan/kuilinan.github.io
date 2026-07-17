@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彩蛋 · 秘密花园</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background-color:#0a0a1a;color:#e0e0ff;line-height:1.6;padding:2rem 1rem}
+        .container{max-width:900px;margin:0 auto;background:rgba(20,20,40,0.8);border-radius:28px;box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);padding:2rem 2rem;backdrop-filter:blur(4px);border:1px solid #3a3a6a}
+        .page-header{margin-bottom:2rem;border-bottom:2px solid #5a4f7c;padding-bottom:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+        .page-title{font-size:2.2rem;font-weight:700;background:linear-gradient(145deg,#c0b0ff,#6b4e9e);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+        .back-home{background:#2a2a4a;padding:0.4rem 1.2rem;border-radius:40px;color:#d0c0ff;text-decoration:none;font-weight:500;transition:0.2s;border:1px solid #6b4e9e}
+        .back-home:hover{background:#6b4e9e;color:white}
+        .egg-grid{display:flex;flex-direction:column;gap:3rem;margin:2rem 0}
+        .egg-card{background:#15152a;border-radius:24px;padding:1.5rem;border:1px solid #3a3a6a;transition:transform .2s,box-shadow .2s}
+        .egg-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px -12px rgba(107,78,158,0.4);border-color:#9b86c6}
+        .egg-title{font-size:1.8rem;margin-bottom:.5rem;color:#d0c0ff;border-left:6px solid #b8a8e0;padding-left:1rem}
+        .egg-description{margin-bottom:1.2rem;color:#b0b0e0;font-size:.95rem}
+        .egg-button{display:inline-block;background:#6b4e9e;color:white;padding:.6rem 1.5rem;border-radius:40px;text-decoration:none;font-weight:500;transition:.2s;border:none;cursor:pointer;margin-top:.5rem}
+        .egg-button:hover{background:#8f6bc0;transform:scale(1.02)}
+        .egg-button:disabled{background:#3a3a5a;cursor:not-allowed;transform:none}
+        .secret-area{margin-top:.5rem}
+        .secret-area input{background:#0a0a1a;border:1px solid #3a3a6a;color:#e0e0ff;padding:.5rem 1rem;border-radius:40px;width:200px;margin-right:.5rem;outline:none;transition:.2s}
+        .secret-area input:focus{border-color:#9b86c6;box-shadow:0 0 0 2px rgba(107,78,158,0.3)}
+        .secret-area .error-msg{color:#ff6b6b;font-size:.9rem;margin-top:.5rem;min-height:1.5em}
+        .secret-content{display:none;margin-top:1.5rem;padding:1rem;background:#0a0a1a;border-radius:16px;border:1px solid #3a3a6a;color:#e0e0ff;word-wrap:break-word;animation:fadeIn .5s ease}
+        .secret-content.show{display:block}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .footer-note{text-align:center;margin-top:2rem;color:#7a6aa9;font-size:.85rem}
+        @media(max-width:600px){.container{padding:1.5rem}.page-title{font-size:1.8rem}.egg-title{font-size:1.5rem}.secret-area input{width:100%;margin-bottom:.5rem}}
+
+        .dev-warning{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000;color:#ff4444;z-index:9999;font-size:1.5rem;text-align:center;padding-top:40vh}
+
+@keyframes cloverRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes cloverPulse {
+    0% { opacity: 0.3; transform: scale(0.7) rotate(45deg); }
+    100% { opacity: 1; transform: scale(1.1) rotate(45deg); }
+}
+@keyframes cloverFadeText {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+.loader-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+</style>
+</head>
+<body>
+
+<div id="pageLoader" style="
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #1a1a2e; z-index: 99999;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    transition: opacity 0.5s ease;
+">
+    <div id="cloverSpinner" style="
+        width: 100px; height: 100px; position: relative;
+        animation: cloverRotate 1.8s linear infinite;
+    ">
+        <div style="position:absolute;width:50px;height:50px;background:#b4a5d5;border-radius:50% 0 50% 0;top:0;left:25px;transform-origin:25px 25px;animation:cloverPulse 1.2s ease-in-out infinite alternate -0.3s;"></div>
+        <div style="position:absolute;width:50px;height:50px;background:#a390cc;border-radius:50% 0 50% 0;top:25px;right:0;transform-origin:25px 25px;animation:cloverPulse 1.2s ease-in-out infinite alternate -0.15s;"></div>
+        <div style="position:absolute;width:50px;height:50px;background:#c4b5e0;border-radius:50% 0 50% 0;bottom:0;left:25px;transform-origin:25px 25px;animation:cloverPulse 1.2s ease-in-out infinite alternate 0s;"></div>
+        <div style="position:absolute;width:50px;height:50px;background:#8f7bbf;border-radius:50% 0 50% 0;top:25px;left:0;transform-origin:25px 25px;animation:cloverPulse 1.2s ease-in-out infinite alternate -0.45s;"></div>
+    </div>
+    <p style="margin-top:1.5rem;color:#b0a0d5;font-size:1.1rem;font-weight:500;animation:cloverFadeText 1.2s ease-in-out infinite alternate;">🍀 秘密花园正在加载…</p>
+    <p style="margin-top:0.5rem;color:#8a7aa9;font-size:0.85rem;">如果加载时间过长，请检查网络连接～</p>
+</div>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">秘密彩蛋 · 魔法小屋</h1>
+        <a href="index.html" class="back-home">返回花园</a>
+    </div>
+    <div class="egg-grid">
+        <div class="egg-card">
+            <div class="egg-title">🌍 纯字符旋转地球</div>
+            <div class="egg-description">经典 ASCII 艺术风格，由字符构成，自动平滑旋转。</div>
+            <a href="地球.html" target="_blank" class="egg-button">✨ 点开予以查看 ✨</a>
+        </div>
+        <div class="egg-card">
+            <div class="egg-title">❄️ 雪花飘落</div>
+            <div class="egg-description">轻量级 Canvas 雪花效果，适合放松心情。</div>
+            <div class="egg-content">
+                <canvas id="snowCanvas" width="500" height="200" style="width:100%; height:auto; background:#0a0a2a; border-radius:12px;"></canvas>
+            </div>
+        </div>
+        <div class="egg-card">
+            <div class="egg-title">🔒 秘密花园</div>
+            <div class="egg-description">
+                存放未发布的图片、与他人的互动帖子或聊天记录。<br>
+                <span style="color: #8a7aa9; font-size: 0.9rem;">密码错误超过10次/天将锁定24小时。</span>
+            </div>
+            <div class="secret-area">
+                <input type="password" id="secretPassword" placeholder="请输入密码..." autocomplete="off">
+                <button class="egg-button" id="unlockBtn">🔓 解锁</button>
+                <div class="error-msg" id="secretError"></div>
+                <div class="secret-content" id="secretContent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-note">🔮 更多彩蛋正在孵化中 · 偶尔回来看看</div>
+</div>
+
+<div class="dev-warning" id="devWarning">🔒 检测到开发者工具已关闭此页面</div>
+
+<script>
+(function(){"use strict";
+
+    var c=document.getElementById('snowCanvas');
+    if(c){(function(){
+        var x=c.getContext('2d');
+        var w=c.clientWidth,h=c.clientHeight;
+        c.width=w;c.height=h;
+        var p=[];
+        for(var i=0;i<80;i++) p.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*3+1,sy:Math.random()*1+0.5,sx:Math.random()*0.5-0.25});
+        function d(){
+            x.clearRect(0,0,w,h);
+            x.fillStyle='#ffffff';
+            for(var i=0;i<p.length;i++){
+                var o=p[i];
+                x.beginPath();
+                x.arc(o.x,o.y,o.r,0,Math.PI*2);
+                x.fill();
+                o.y+=o.sy;o.x+=o.sx;
+                if(o.y>h){o.y=0;o.x=Math.random()*w;}
+                if(o.x<0)o.x=w;if(o.x>w)o.x=0;
+            }
+            requestAnimationFrame(d);
+        }
+        d();
+        window.addEventListener('resize',function(){w=c.clientWidth;h=c.clientHeight;c.width=w;c.height=h;});
+    })();}
+})();
+
+(function(){"use strict";
+
+    var _d = document.getElementById('devWarning');
+    var _devOpen = false;
+
+    var _c = console;
+    var _log = _c.log;
+    var _err = _c.error;
+
+    var _w = window.outerWidth - window.innerWidth;
+    setInterval(function() {
+        var _nw = window.outerWidth - window.innerWidth;
+        if (_nw > 100 || _nw < -100) {
+
+            if (_d) _d.style.display = 'block';
+            _devOpen = true;
+        }
+    }, 2000);
+
+    var _H = [
+        "85804d2bb2cdf17c",
+        "94b7dacb0511c5ed",
+        "5a5de1449ddbdc68",
+        "d7f829e5aed72709"
+    ];
+    var _S = [
+        "1314",
+        "byyj"
+    ];
+    var _E = [
+        "IXEtUzhEVThuaGYtS1ZfRkIhQFFZTGVOeUpwcGRobUAhRjVUX2ZUZ1VYWFA2LThCNiFAeEFSQW5ZT",
+        "kQyRWV3dFlTVkAhOVc5bjBidHNLVkhwdjBkNiFAa2UyNWtDNkVibXpHcGtKX0AheThfTXljS1FYb2",
+        "VIZlJ1dyFAS2E5Unc2Q29zZ0pNRmZlVkAhdkdrbGRJRy1ZMlVuQnhwVyFAeUhZT3ItWWRGZWRKNTZ",
+        "PTkBAZzlJV3JZbThEMnZPRV9QQUBAQmRZQmNudU1oT3dQWWhTdEBAS09DWGVoOFhMeTJiOFY4aUBA",
+        "Y1haR2lYR1F3N2poUXdoZUBAdVpJZnVYUk9Xd2NQZWJSaUBAelhZXzllbUIxeHAweHRmWUBANy1yY",
+        "2pNYnJzZTVVQ2lKYkBAcW10OFdnZHlqTFJsODBqNEBAeWtwLVNHbXNNTUVQSnFJTEBAOGUzLUtkcE",
+        "1hd1JDMTNLSUBAZWROU3cwVGFNazhBeWVsZEBAS0RXQVd3QjBGN2loN0JHMUBAZ0FBQUFBQnFXblJ",
+        "Oa2NPWkBAMVhkSmgwc0pKNnYwejRCaUBAQ3JKMUtuXzVFejV6MDFRSkBAbkp5MHJkUmFNZUpfMDc4c0A="
+    ];
+
+    function _r(a) { return a.join(''); }
+    function _g(k) {
+
+        return window[k];
+    }
+
+    var PASSWORD_HASH = _r(_H);
+    var SALT = _r(_S);
+    var ENCRYPTED_RAW = _r(_E);
+
+    function _d1(s) {
+
+        try {
+
+            var _b = CryptoJS.enc.Base64.parse(s.replace(/-/g,'+').replace(/_/g,'/'));
+            var _s = CryptoJS.enc.Utf8.stringify(_b);
+
+            var _p = [];
+            var _i = 0;
+            while (_i < _s.length) {
+                var _ch = _s.charAt(_i);
+                if (_ch === '@') {
+                    var _end = _s.indexOf('@', _i + 1);
+                    if (_end > _i) {
+                        _p.push(_s.substring(_i + 1, _end));
+                        _i = _end + 1;
+                    } else { _i++; }
+                } else {
+
+                    if (_ch === '!') {
+                        var _end2 = _s.indexOf('!', _i + 1);
+                        _i = (_end2 > _i) ? _end2 + 1 : _i + 1;
+                    } else { _i++; }
+                }
+            }
+            return _p.join('');
+        } catch(e) { return null; }
+    }
+
+    function _d2(s) {
+
+        try {
+            var _k = CryptoJS.enc.Utf8.parse(SALT);
+            var _iv = CryptoJS.enc.Utf8.parse(SALT.substring(0, 16));
+            var _dec = CryptoJS.AES.decrypt(s, _k, {
+                iv: _iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            return _dec.toString(CryptoJS.enc.Utf8);
+        } catch(e) { return null; }
+    }
+
+    function _v(p) {
+
+        var _hash = p + SALT;
+        for (var _i = 0; _i < 1000; _i++) {
+            _hash = CryptoJS.SHA256(_hash).toString();
+        }
+
+        var _simple = CryptoJS.SHA256(p + SALT).toString();
+        return _simple === PASSWORD_HASH;
+    }
+
+    function _decrypt(p) {
+
+        try {
+
+            var _simple = CryptoJS.SHA256(p + SALT).toString();
+            if (_simple !== PASSWORD_HASH) return null;
+
+            var _l1 = _d1(ENCRYPTED_RAW);
+            if (!_l1) return null;
+
+            var _content = _d2(_l1);
+            return _content;
+        } catch(e) { return null; }
+    }
+
+    var _KEY_DATE = 'secret_date_v2';
+    var _KEY_ATT = 'secret_attempts_v2';
+    var _KEY_LOCK = 'secret_lock_until_v2';
+
+    var INP = document.getElementById('secretPassword');
+    var BTN = document.getElementById('unlockBtn');
+    var ERR = document.getElementById('secretError');
+    var CONT = document.getElementById('secretContent');
+
+    function _getDate() { return new Date().toISOString().split('T')[0]; }
+
+    function _getAttempts() {
+        var d = localStorage.getItem(_KEY_DATE);
+        if (d !== _getDate()) {
+            localStorage.setItem(_KEY_DATE, _getDate());
+            localStorage.setItem(_KEY_ATT, '0');
+            return 0;
+        }
+        return parseInt(localStorage.getItem(_KEY_ATT)) || 0;
+    }
+
+    function _setAttempts(v) { localStorage.setItem(_KEY_ATT, v.toString()); }
+
+    function _getLockTime() { return parseInt(localStorage.getItem(_KEY_LOCK)) || 0; }
+
+    function _setLockTime(t) { localStorage.setItem(_KEY_LOCK, t.toString()); }
+
+    function _isLocked() {
+        var t = _getLockTime();
+        if (t === 0) return false;
+        if (Date.now() < t) return true;
+        _setLockTime(0);
+        return false;
+    }
+
+    function _lockRemaining() {
+        var t = _getLockTime();
+        if (t === 0) return 0;
+        return Math.max(0, Math.ceil((t - Date.now()) / 60000));
+    }
+
+    function _showErr(m) { ERR.textContent = m; }
+    function _showContent(h) {
+        CONT.innerHTML = h;
+        CONT.classList.add('show');
+        _showErr('✅ 解锁成功！');
+        _setAttempts(0);
+
+        INP.style.display = 'none';
+        BTN.style.display = 'none';
+    }
+
+    function _doUnlock() {
+
+        if (_devOpen) {
+            _showErr('🔒 请关闭开发者工具后再试');
+            return;
+        }
+
+        if (_isLocked()) {
+            var r = _lockRemaining();
+            _showErr('🔒 已锁定，剩余 ' + r + ' 分钟。');
+            window.location.href = '404.html';
+            return;
+        }
+
+        var entered = INP.value.trim();
+        if (!entered) { _showErr('请输入密码。'); return; }
+
+        if (!_v(entered)) {
+            var att = _getAttempts() + 1;
+            _setAttempts(att);
+            if (att >= 10) {
+                var lock = Date.now() + 24 * 60 * 60 * 1000;
+                _setLockTime(lock);
+                _showErr('🔒 错误次数已达 10 次/天，已锁定24小时。');
+                window.location.href = '404.html';
+                return;
+            } else {
+                var rem = 10 - att;
+                _showErr('❌ 密码错误，今日还剩 ' + rem + ' 次尝试机会。');
+                return;
+            }
+        }
+
+        var content = _decrypt(entered);
+        if (!content) {
+            _showErr('⚠️ 解密失败，请稍后再试。');
+            return;
+        }
+        _showContent(content);
+    }
+
+    BTN.addEventListener('click', _doUnlock);
+    INP.addEventListener('keydown', function(e) { if (e.key === 'Enter') BTN.click(); });
+
+    (function() {
+        if (_isLocked()) {
+            var r = _lockRemaining();
+            _showErr('🔒 已锁定，剩余 ' + r + ' 分钟。');
+            window.location.href = '404.html';
+            return;
+        }
+        var att = _getAttempts();
+        var rem = 10 - att;
+        if (rem > 0) {
+            _showErr('今日剩余尝试次数：' + rem + ' 次');
+        } else {
+            _showErr('今日尝试次数已用完。');
+        }
+    })();
+})();
+</script>
+
+<script>
+(function() {
+    function hideLoader() {
+        var loader = document.getElementById('pageLoader');
+        if (loader) {
+            loader.classList.add('loader-hidden');
+            setTimeout(function() {
+                if (loader && loader.parentNode) loader.style.display = 'none';
+            }, 600);
+        }
+    }
+
+    var scripts = document.querySelectorAll('script[src]');
+    if (scripts.length > 0) {
+        var loadedCount = 0;
+        for (var i = 0; i < scripts.length; i++) {
+            (function(script) {
+                script.addEventListener('load', function() {
+                    loadedCount++;
+                    if (loadedCount >= scripts.length) {
+                        setTimeout(hideLoader, 200);
+                    }
+                });
+                script.addEventListener('error', function() {
+                    loadedCount++;
+                    if (loadedCount >= scripts.length) {
+                        setTimeout(hideLoader, 200);
+                    }
+                });
+            })(scripts[i]);
+        }
+
+        setTimeout(hideLoader, 3000);
+    } else {
+        setTimeout(hideLoader, 500);
+    }
+})();
+</script>
+
+</body>
+</html>

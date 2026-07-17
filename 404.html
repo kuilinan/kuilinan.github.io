@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 · 页面走丢了</title>
+
+    <meta name="description" content="页面未找到，请返回首页浏览">
+
+    <meta name="keywords" content="ABDL,宝宝,日常,博客,喹啉氨">
+
+    <link rel="canonical" href="https://kuilinan.github.io/404.html">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(20, 20, 40, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            border: 1px solid #3a3a6a;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
+        }
+
+        .big-cross {
+            font-size: 7rem;
+            color: #ff6b6b;
+            line-height: 1;
+            margin-bottom: 0.2rem;
+            font-weight: 300;
+            text-shadow: 0 0 40px rgba(255, 107, 107, 0.3);
+        }
+        .status-code {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #c0b0ff, #6b4e9e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #e0e0ff;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        .message {
+            color: #b0b0e0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin: 1.5rem 0 2rem;
+        }
+        .message p {
+            margin-bottom: 0.8rem;
+        }
+        .message .error-highlight {
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+        .message a {
+            color: #b8a8e0;
+            text-decoration: none;
+            border-bottom: 1px dashed #6b4e9e;
+        }
+        .message a:hover {
+            border-bottom-color: #b8a8e0;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            border: 1px solid #6b4e9e;
+            background: transparent;
+            color: #d0c0ff;
+            min-width: 140px;
+        }
+        .btn-primary {
+            background: #6b4e9e;
+            color: #fff;
+            border-color: #6b4e9e;
+        }
+        .btn-primary:hover {
+            background: #8f6bc0;
+            transform: scale(1.02);
+        }
+        .btn-secondary:hover {
+            background: #2a2a4a;
+            transform: scale(1.02);
+        }
+        .footer-note {
+            margin-top: 2.5rem;
+            color: #5a4a7a;
+            font-size: 0.85rem;
+            border-top: 1px solid #2a2a4a;
+            padding-top: 1.5rem;
+        }
+        .footer-note a {
+            color: #b8a8e0;
+            text-decoration: none;
+        }
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        .network-tip {
+            background: linear-gradient(135deg, #1a1a3a, #2a1a4a);
+            border-radius: 24px;
+            padding: 1.5rem 1.8rem;
+            margin: 1.8rem 0;
+            border: 1px solid #4a3a7a;
+            position: relative;
+            overflow: hidden;
+        }
+        .network-tip::before {
+            content: "☁️";
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            font-size: 4rem;
+            opacity: 0.15;
+        }
+        .network-tip-title {
+            color: #ffd700;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        .network-tip-text {
+            color: #d0c0ff;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .network-tip-text .highlight {
+            color: #ff9f5e;
+            font-weight: 600;
+        }
+        .network-tip-text .emoji-big {
+            font-size: 1.3rem;
+        }
+        .network-tip-solution {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .solution-tag {
+            background: rgba(107, 78, 158, 0.3);
+            border: 1px solid #6b4e9e;
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            color: #d0c0ff;
+            font-size: 0.9rem;
+        }
+        .solution-tag:hover {
+            background: #6b4e9e;
+            transform: scale(1.05);
+        }
+
+        .serious-em {
+            color: #ff4757;
+            font-weight: 600;
+            text-decoration: wavy underline #ff4757;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 2px;
+        }
+        .serious-em:hover {
+            color: #ff6b81;
+            text-decoration-color: #ff6b81;
+        }
+
+        .cute-clouds {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            animation: cloudFloat 3s ease-in-out infinite alternate;
+        }
+        @keyframes cloudFloat {
+            0% { transform: translateY(0px); opacity: 0.7; }
+            100% { transform: translateY(-8px); opacity: 1; }
+        }
+                @media (max-width: 500px) {
+
+        .container { padding: 2rem 1.5rem; }
+            .big-cross { font-size: 4.5rem; }
+            .status-code { font-size: 3.5rem; }
+            h1 { font-size: 1.5rem; }
+            .message { font-size: 1rem; }
+            .btn { min-width: 120px; padding: 0.6rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+                <div class="big-cross">✘</div>
+        <div style="
+            position: relative; margin-top: -0.5rem; margin-bottom: 0.5rem;
+            font-size: 0.75rem; color: #7a5a9a; letter-spacing: 0.1em;
+        ">错误代码 · 404</div>
+
+        <div class="status-code">404</div>
+        <h1>⛔ 页面无法访问</h1>
+        <div class="message">
+            <p>⚠️ 您访问的页面不存在或已失效。</p>
+            <p>请检查链接是否正确，或确认网络连接是否稳定。</p>
+
+            <div class="cute-clouds">☁️ ☁️ ☁️</div>
+
+            <div class="network-tip" id="networkTip" style="display: none;">
+                <div class="network-tip-title">📡 网络连接异常</div>
+                <div class="network-tip-text">
+                    <p>如果页面加载失败或跳转到此页，通常是因为网络波动导致数据获取中断。<br>建议尝试以下方式恢复访问：</p>
+                    <div class="network-tip-solution">
+                        <span class="solution-tag">🔑 开启 VPN 试试看</span>
+                        <span class="solution-tag">📱 切换到手机流量</span>
+                        <span class="solution-tag">🔄 刷新页面重试</span>
+                        <span class="solution-tag">⏳ 稍后再来逛逛</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.95rem; color: #b090c0;">
+                        ⚠️ 请务必使用 <span class="serious-em">稳定的网络环境</span> 访问本站，否则可能导致页面异常或数据丢失。
+                    </p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1rem;">
+                如您确认链接无误但仍无法访问，请<span class="serious-em">立即联系我</span>反馈问题：
+                <span class="serious-em"><a href="mailto:kuilinan@qq.com" style="color: #ff4757; text-decoration: wavy underline #ff4757; text-underline-offset: 4px; font-weight: 600;">📧 kuilinan@qq.com</a></span>
+            </p>
+            <p style="color: #b0a0c0; font-size: 0.9rem; margin-top: 0.5rem;">
+                我会尽快处理，感谢您的理解与配合 🙏
+            </p>
+        </div>
+        <div class="actions">
+            <a href="index.html" class="btn btn-primary">🏠 返回小窝</a>
+            <a href="关于.html" class="btn btn-secondary">📖 关于我</a>
+            <a href="归档.html" class="btn btn-secondary">📚 文章归档</a>
+        </div>
+
+        <div class="footer-note">
+            页面无法访问 · 请确认链接或网络后再试 ｜ <a href="index.html">返回首页</a>
+        </div>
+
+        <script>
+            (function() {
+
+                var params = new URLSearchParams(window.location.search);
+                var reason = params.get('reason');
+
+                if (reason === 'network' || reason === 'render_error') {
+                    var tip = document.getElementById('networkTip');
+                    if (tip) {
+                        tip.style.display = 'block';
+                    }
+                }
+            })();
+        </script>
+    </div>
+</body>
+</html>

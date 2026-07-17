@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归档 · 小径分岔的花园</title>
+    <script src="data.js"></script>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafc;
+            color: #1e1e2f;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
+            padding: 2rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #f0eef5;
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #3e3a5f, #6b4e9e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .back-home {
+            background: #e4daf2;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            color: #3c3569;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            border: 1px solid #cdbde8;
+        }
+
+        .back-home:hover {
+            background: #d3c2f0;
+        }
+
+        .archive-year {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #4a3f6e;
+            margin: 1.2rem 0 0.5rem;
+            border-bottom: 2px dashed #cdbeea;
+            padding-bottom: 0.2rem;
+        }
+
+        .archive-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+
+        .archive-item {
+            display: flex;
+            align-items: baseline;
+            padding: 0.4rem 0.5rem;
+            border-radius: 12px;
+            transition: background 0.15s;
+            border-bottom: 1px solid #f0eaf8;
+            font-size: 0.95rem;
+        }
+
+        .archive-item:hover {
+            background: #f5f0fd;
+        }
+
+        .archive-date {
+            min-width: 65px;
+            color: #6f5f97;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .archive-title {
+            flex: 1;
+            margin: 0 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .archive-title a {
+            text-decoration: none;
+            color: #2a2a4a;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .archive-title a:hover {
+            color: #6b4e9e;
+            text-decoration: underline;
+        }
+
+        .archive-category {
+            background: #e5d9f2;
+            padding: 0.15rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: #423d63;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 0.5rem;
+        }
+
+        .category-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem;
+            padding: 0.6rem 1rem;
+            background: #f2ebfa;
+            border-radius: 30px;
+        }
+
+        .category-tag {
+            background: white;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            color: #4a3f6e;
+            font-size: 0.8rem;
+            border: 1px solid #cdbde8;
+        }
+
+        .footer-links {
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #7b7b9c;
+            font-size: 0.9rem;
+        }
+
+        .emoji-deco {
+            font-size: 1.1rem;
+            margin-right: 3px;
+        }
+
+        @media (max-width: 500px) {
+            .container { padding: 1.5rem 1rem; }
+            .page-title { font-size: 1.8rem; }
+            .archive-item {
+                flex-wrap: wrap;
+                padding: 0.6rem 0.3rem;
+            }
+            .archive-date { min-width: 55px; }
+            .archive-title {
+                white-space: normal;
+                margin: 0.2rem 0;
+            }
+        }
+
+@keyframes cloverRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes cloverPulse {
+    0% { opacity: 0.3; transform: scale(0.7) rotate(45deg); }
+    100% { opacity: 1; transform: scale(1.1) rotate(45deg); }
+}
+@keyframes cloverFadeText {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+.loader-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+</style>
+</head>
+<body>
+
+<div id="pageLoader" style="
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #fafafc; z-index: 99999;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    transition: opacity 0.5s ease;
+">
+
+    <div id="cloverSpinner" style="
+        width: 100px; height: 100px; position: relative;
+        animation: cloverRotate 1.8s linear infinite;
+    ">
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #b4a5d5; border-radius: 50% 0 50% 0;
+            top: 0; left: 25px; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate -0.3s;
+        "></div>
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #a390cc; border-radius: 50% 0 50% 0;
+            top: 25px; right: 0; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate -0.15s;
+        "></div>
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #c4b5e0; border-radius: 50% 0 50% 0;
+            bottom: 0; left: 25px; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate 0s;
+        "></div>
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #8f7bbf; border-radius: 50% 0 50% 0;
+            top: 25px; left: 0; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate -0.45s;
+        "></div>
+    </div>
+
+    <p style="
+        margin-top: 1.5rem; color: #7a6aa9;
+        font-size: 1.1rem; font-weight: 500;
+        animation: cloverFadeText 1.2s ease-in-out infinite alternate;
+    ">🍀 小花园正在加载中…</p>
+    <p style="
+        margin-top: 0.5rem; color: #9a8ab9; font-size: 0.85rem;
+    ">如果加载时间过长，请检查网络连接～</p>
+</div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">文章归档</h1>
+            <a href="index.html" class="back-home">🏡 返回首页</a>
+        </div>
+
+        <div id="categorySummary" class="category-summary"></div>
+        <div id="archiveContent"></div>
+
+        <p style="text-align: center; color: #8a7aa9; margin: 1.5rem 0 0; font-size:0.9rem;">
+            <span class="emoji-deco">📎</span> 慢慢存档，花园会越来越茂盛～
+        </p>
+
+        <div class="footer-links">
+            <small>© 2025 喹啉氨 小径分岔的花园</small>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var posts = typeof POSTS !== 'undefined' ? POSTS : [];
+
+        var categorySummary = document.getElementById('categorySummary');
+        if (categorySummary) {
+            var catCounts = {};
+            for (var i = 0; i < posts.length; i++) {
+                var cat = posts[i].category;
+                catCounts[cat] = (catCounts[cat] || 0) + 1;
+            }
+            var total = posts.length;
+            var html = '<span class="category-tag">📌 全部文章 · ' + total + '篇</span>';
+            var emojiMap = {'宝宝日记':'🍼','宝宝自拍':'📸','技术':'💻','ABDL':'🧸'};
+            for (var cat in catCounts) {
+                var emoji = emojiMap[cat] || '📄';
+                html += '<span class="category-tag">' + emoji + ' ' + cat + ' · ' + catCounts[cat] + '篇</span>';
+            }
+            categorySummary.innerHTML = html;
+        }
+
+        var archiveContent = document.getElementById('archiveContent');
+        if (archiveContent && posts.length > 0) {
+
+            posts.sort(function(a, b) { return b.date.localeCompare(a.date); });
+
+            var yearGroups = {};
+            for (var i = 0; i < posts.length; i++) {
+                var year = posts[i].date.substring(0, 4);
+                if (!yearGroups[year]) yearGroups[year] = [];
+                yearGroups[year].push(posts[i]);
+            }
+
+            var years = Object.keys(yearGroups).sort().reverse();
+            var html = '';
+            for (var y = 0; y < years.length; y++) {
+                var year = years[y];
+                html += '<div class="archive-section">';
+                html += '<h2 class="archive-year">' + year + '</h2>';
+                html += '<ul class="archive-list">';
+                var yearPosts = yearGroups[year];
+                for (var p = 0; p < yearPosts.length; p++) {
+                    var post = yearPosts[p];
+                    var dateParts = post.date.split('-');
+                    var md = dateParts[1] + '-' + dateParts[2];
+                    html += '<li class="archive-item">';
+                    html += '<span class="archive-date">' + md + '</span>';
+                    html += '<span class="archive-title"><a href="' + post.url + '">' + post.title + '</a></span>';
+                    html += '<span class="archive-category">' + post.category + '</span>';
+                    html += '</li>';
+                }
+                html += '</ul></div>';
+            }
+            archiveContent.innerHTML = html;
+        }
+
+        var smallEl = document.querySelector('small');
+        if (smallEl) {
+            smallEl.innerHTML = smallEl.innerHTML.replace('2025', new Date().getFullYear());
+        }
+    })();
+    </script>
+
+<script>
+(function() {
+
+    var pageLoaded = false;
+    var loaderTimer = null;
+
+    function hideLoader() {
+        var loader = document.getElementById('pageLoader');
+        if (loader) {
+            loader.classList.add('loader-hidden');
+            setTimeout(function() {
+                if (loader && loader.parentNode) {
+                    loader.style.display = 'none';
+                }
+            }, 600);
+        }
+    }
+
+    var scripts = document.querySelectorAll('script[src]');
+    var hasExternalScripts = scripts.length > 0;
+
+    if (hasExternalScripts) {
+
+        loaderTimer = setTimeout(function() {
+
+            if (!pageLoaded) {
+
+                var failedScripts = false;
+                for (var i = 0; i < scripts.length; i++) {
+
+                    if (scripts[i].getAttribute('data-error') === 'true') {
+                        failedScripts = true;
+                        break;
+                    }
+                }
+
+                if (failedScripts) {
+                    window.location.href = '404.html?reason=network';
+                } else {
+
+                    hideLoader();
+                }
+            }
+        }, 8000);
+    } else {
+
+        setTimeout(hideLoader, 600);
+    }
+
+    for (var i = 0; i < scripts.length; i++) {
+        scripts[i].addEventListener('error', function() {
+            this.setAttribute('data-error', 'true');
+        });
+        scripts[i].addEventListener('load', function() {
+            pageLoaded = true;
+            clearTimeout(loaderTimer);
+            hideLoader();
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var images = document.querySelectorAll('img');
+        if (images.length === 0) {
+
+            pageLoaded = true;
+            clearTimeout(loaderTimer);
+            setTimeout(hideLoader, 300);
+        } else {
+            var loadedCount = 0;
+            var totalImages = images.length;
+            for (var i = 0; i < images.length; i++) {
+                if (images[i].complete) {
+                    loadedCount++;
+                } else {
+                    images[i].addEventListener('load', function() {
+                        loadedCount++;
+                        if (loadedCount >= totalImages) {
+                            pageLoaded = true;
+                            clearTimeout(loaderTimer);
+                            setTimeout(hideLoader, 300);
+                        }
+                    });
+                    images[i].addEventListener('error', function() {
+                        loadedCount++;
+                        if (loadedCount >= totalImages) {
+                            pageLoaded = true;
+                            clearTimeout(loaderTimer);
+                            setTimeout(hideLoader, 300);
+                        }
+                    });
+                }
+            }
+            if (loadedCount >= totalImages) {
+                pageLoaded = true;
+                clearTimeout(loaderTimer);
+                setTimeout(hideLoader, 300);
+            }
+        }
+    });
+
+    setTimeout(function() {
+        if (document.getElementById('pageLoader') &&
+            document.getElementById('pageLoader').style.display !== 'none') {
+            hideLoader();
+        }
+    }, 10000);
+})();
+</script>
+
+</body>
+</html>

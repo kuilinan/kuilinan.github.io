@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1KB 旋转地球</title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        pre {
+            margin: 0;
+            padding: 10px;
+            color: #0f0;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        @media (min-width: 1200px) {
+            pre {
+                font-size: 18px;
+            }
+        }
+
+@keyframes cloverRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes cloverPulse {
+    0% { opacity: 0.3; transform: scale(0.7) rotate(45deg); }
+    100% { opacity: 1; transform: scale(1.1) rotate(45deg); }
+}
+@keyframes cloverFadeText {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+.loader-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+</style>
+</head>
+<body>
+
+<div id="pageLoader" style="
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #fafafc; z-index: 99999;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    transition: opacity 0.5s ease;
+">
+
+    <div id="cloverSpinner" style="
+        width: 100px; height: 100px; position: relative;
+        animation: cloverRotate 1.8s linear infinite;
+    ">
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #b4a5d5; border-radius: 50% 0 50% 0;
+            top: 0; left: 25px; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate -0.3s;
+        "></div>
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #a390cc; border-radius: 50% 0 50% 0;
+            top: 25px; right: 0; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate -0.15s;
+        "></div>
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #c4b5e0; border-radius: 50% 0 50% 0;
+            bottom: 0; left: 25px; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate 0s;
+        "></div>
+        <div style="
+            position: absolute; width: 50px; height: 50px;
+            background: #8f7bbf; border-radius: 50% 0 50% 0;
+            top: 25px; left: 0; transform-origin: 25px 25px;
+            animation: cloverPulse 1.2s ease-in-out infinite alternate -0.45s;
+        "></div>
+    </div>
+
+    <p style="
+        margin-top: 1.5rem; color: #7a6aa9;
+        font-size: 1.1rem; font-weight: 500;
+        animation: cloverFadeText 1.2s ease-in-out infinite alternate;
+    ">🍀 小花园正在加载中…</p>
+    <p style="
+        margin-top: 0.5rem; color: #9a8ab9; font-size: 0.85rem;
+    ">如果加载时间过长，请检查网络连接～</p>
+</div>
+
+<script>
+
+    if (!localStorage.getItem('earth_alert_shown')) {
+        alert('本地球可能在您的浏览器上无法自动旋转，请不断刷新网页来解决。');
+        localStorage.setItem('earth_alert_shown', 'true');
+    }
+</script>
+<script>
+
+eval(z = 'p = "<" + "pre>" ; for (y in n = "zw24l6k\\ 4e3t4jnt4qj24xh2 x42kty24wrt413n243n\\ 9h243pdxt41csb yz43iyb6k43pk7243nm\\ r24".split(4)) {  for (a in t = parseInt(n[y], 36) +  (e = x = r = [])) for (r = !r, i = 0; t[a ] > i; i += .05) with (Math) x -= .05, 0 > cos(o = new Date / 1e3  + x / PI) && (e[~ ~ (32 * sin(o) *  sin(.5 + y / 7)) + 60] = -~ r);  for (x = 0; 122 > x;) p += " *#"  [e[x++] + e[x++]] || (S = ("eval"  + "(z=\'" + z.split(B = "\\\\").  join(B + B).split(Q = "\'").join(B + Q ) + Q + ")//m1k")[x / 2 + 61 * y - 1]).fontcolor (/\\w/.test(S) && "# 03B"); document.body.innerHTML = p += B + "\\n"} setTimeout(z)')
+</script>
+
+<script>
+(function() {
+
+    var pageLoaded = false;
+    var loaderTimer = null;
+
+    function hideLoader() {
+        var loader = document.getElementById('pageLoader');
+        if (loader) {
+            loader.classList.add('loader-hidden');
+            setTimeout(function() {
+                if (loader && loader.parentNode) {
+                    loader.style.display = 'none';
+                }
+            }, 600);
+        }
+    }
+
+    var scripts = document.querySelectorAll('script[src]');
+    var hasExternalScripts = scripts.length > 0;
+
+    if (hasExternalScripts) {
+
+        loaderTimer = setTimeout(function() {
+
+            if (!pageLoaded) {
+
+                var failedScripts = false;
+                for (var i = 0; i < scripts.length; i++) {
+
+                    if (scripts[i].getAttribute('data-error') === 'true') {
+                        failedScripts = true;
+                        break;
+                    }
+                }
+
+                if (failedScripts) {
+                    window.location.href = '404.html?reason=network';
+                } else {
+
+                    hideLoader();
+                }
+            }
+        }, 8000);
+    } else {
+
+        setTimeout(hideLoader, 600);
+    }
+
+    for (var i = 0; i < scripts.length; i++) {
+        scripts[i].addEventListener('error', function() {
+            this.setAttribute('data-error', 'true');
+        });
+        scripts[i].addEventListener('load', function() {
+            pageLoaded = true;
+            clearTimeout(loaderTimer);
+            hideLoader();
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var images = document.querySelectorAll('img');
+        if (images.length === 0) {
+
+            pageLoaded = true;
+            clearTimeout(loaderTimer);
+            setTimeout(hideLoader, 300);
+        } else {
+            var loadedCount = 0;
+            var totalImages = images.length;
+            for (var i = 0; i < images.length; i++) {
+                if (images[i].complete) {
+                    loadedCount++;
+                } else {
+                    images[i].addEventListener('load', function() {
+                        loadedCount++;
+                        if (loadedCount >= totalImages) {
+                            pageLoaded = true;
+                            clearTimeout(loaderTimer);
+                            setTimeout(hideLoader, 300);
+                        }
+                    });
+                    images[i].addEventListener('error', function() {
+                        loadedCount++;
+                        if (loadedCount >= totalImages) {
+                            pageLoaded = true;
+                            clearTimeout(loaderTimer);
+                            setTimeout(hideLoader, 300);
+                        }
+                    });
+                }
+            }
+            if (loadedCount >= totalImages) {
+                pageLoaded = true;
+                clearTimeout(loaderTimer);
+                setTimeout(hideLoader, 300);
+            }
+        }
+    });
+
+    setTimeout(function() {
+        if (document.getElementById('pageLoader') &&
+            document.getElementById('pageLoader').style.display !== 'none') {
+            hideLoader();
+        }
+    }, 10000);
+})();
+</script>
+
+</body>
+</html>
