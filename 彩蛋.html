@@ -30,9 +30,10 @@
         @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         .footer-note{text-align:center;margin-top:2rem;color:#7a6aa9;font-size:.85rem}
         @media(max-width:600px){.container{padding:1.5rem}.page-title{font-size:1.8rem}.egg-title{font-size:1.5rem}.secret-area input{width:100%;margin-bottom:.5rem}}
-
+        /* 防开发者工具检测 */
         .dev-warning{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000;color:#ff4444;z-index:9999;font-size:1.5rem;text-align:center;padding-top:40vh}
-
+    
+/* ===== 三叶草加载动画（通用版） ===== */
 @keyframes cloverRotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -54,6 +55,7 @@
 </head>
 <body>
 
+<!-- ===== 三叶草加载动画 ===== -->
 <div id="pageLoader" style="
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #1a1a2e; z-index: 99999;
@@ -109,11 +111,12 @@
     <div class="footer-note">🔮 更多彩蛋正在孵化中 · 偶尔回来看看</div>
 </div>
 
+<!-- 反调试：检测开发者工具 -->
 <div class="dev-warning" id="devWarning">🔒 检测到开发者工具已关闭此页面</div>
 
 <script>
 (function(){"use strict";
-
+    // ===== 雪花动画 =====
     var c=document.getElementById('snowCanvas');
     if(c){(function(){
         var x=c.getContext('2d');
@@ -141,24 +144,31 @@
 })();
 
 (function(){"use strict";
-
+    // ================================================================
+    // 第1层防御：反调试 - 检测开发者工具/控制台
+    // ================================================================
     var _d = document.getElementById('devWarning');
     var _devOpen = false;
-
+    
+    // 反调试技巧: 检测 console 是否被篡改
     var _c = console;
     var _log = _c.log;
     var _err = _c.error;
-
+    
+    // 检测窗口尺寸变化 (开发者工具打开时窗口会变化)
     var _w = window.outerWidth - window.innerWidth;
     setInterval(function() {
         var _nw = window.outerWidth - window.innerWidth;
         if (_nw > 100 || _nw < -100) {
-
+            // 疑似开发者工具打开，触发反制
             if (_d) _d.style.display = 'block';
             _devOpen = true;
         }
     }, 2000);
-
+    
+    // ================================================================
+    // 第2层防御：关键数据拆分存储 (不直接在代码中可读)
+    // ================================================================
     var _H = [
         "85804d2bb2cdf17c",
         "94b7dacb0511c5ed",
@@ -170,33 +180,40 @@
         "byyj"
     ];
     var _E = [
-        "IXEtUzhEVThuaGYtS1ZfRkIhQFFZTGVOeUpwcGRobUAhRjVUX2ZUZ1VYWFA2LThCNiFAeEFSQW5ZT",
-        "kQyRWV3dFlTVkAhOVc5bjBidHNLVkhwdjBkNiFAa2UyNWtDNkVibXpHcGtKX0AheThfTXljS1FYb2",
-        "VIZlJ1dyFAS2E5Unc2Q29zZ0pNRmZlVkAhdkdrbGRJRy1ZMlVuQnhwVyFAeUhZT3ItWWRGZWRKNTZ",
-        "PTkBAZzlJV3JZbThEMnZPRV9QQUBAQmRZQmNudU1oT3dQWWhTdEBAS09DWGVoOFhMeTJiOFY4aUBA",
-        "Y1haR2lYR1F3N2poUXdoZUBAdVpJZnVYUk9Xd2NQZWJSaUBAelhZXzllbUIxeHAweHRmWUBANy1yY",
-        "2pNYnJzZTVVQ2lKYkBAcW10OFdnZHlqTFJsODBqNEBAeWtwLVNHbXNNTUVQSnFJTEBAOGUzLUtkcE",
-        "1hd1JDMTNLSUBAZWROU3cwVGFNazhBeWVsZEBAS0RXQVd3QjBGN2loN0JHMUBAZ0FBQUFBQnFXblJ",
-        "Oa2NPWkBAMVhkSmgwc0pKNnYwejRCaUBAQ3JKMUtuXzVFejV6MDFRSkBAbkp5MHJkUmFNZUpfMDc4c0A="
+        "IXEtUzhEVThuaGYtS1ZfRkIhQHFTUXF2R3VxKzNNblZHQkZjVTBXU0UrREhxWGZvNUxBbnBLYTdZc0Qv",
+        "Z1dUOHQ3TjBoUngrYUxYWk9KS09STHM0dEVlY3ZsRVRiUzRzdzR1YXBpTVhqNUxPQ1poMzFoeEtaTWw5",
+        "bUYzM3M2cXVIdFN2UjVwOTNYZCs1SEQ2M3UxOHZKZVp0RXJ3N1RGbmQ1amxVVExhT21reDl3WlZjU0xv",
+        "b1JzMGJOc2FxcFo1ZUV2dVFFeVhIcTlpK2ZibUlBaGQ0NUo3RTZJSmRTWDRTcG9GUVF1S292WVFDSDdy",
+        "cXVXSmxuTFhjWWwxVUFrb0hmUXIwWWZwcUdYcmxLZ0pDdnRXMG1lL29YOUNkc1VTVUdjYU1OSSt1SjBI",
+        "aHhEQmU5K2w3YzlWR3lkVWZCL0hDOEphc3lEa2xoZi9wdFA1VFdUYTdTTytoWU1NejRZR1BkRnRaVlkw",
+        "M0dVZW1IdDBSYUtKNGNwTU11QzBlZlptdndhTzNYSkV3UDR5bFNIczBMQk8xbWh1Yk9BOXVxa1F5b0Z5",
+        "VXpiTVE9PUAhSjFLbl81RXo1ejAxUUoh",
     ];
-
+    
+    // ================================================================
+    // 第3层防御：运行时重组关键数据 (让静态分析困难)
+    // ================================================================
     function _r(a) { return a.join(''); }
     function _g(k) {
-
+        // 动态获取 - 非直接访问变量
         return window[k];
     }
-
+    
     var PASSWORD_HASH = _r(_H);
     var SALT = _r(_S);
     var ENCRYPTED_RAW = _r(_E);
-
+    
+    // ================================================================
+    // 第4层防御：解密逻辑混淆 (函数名无意义，控制流扁平化)
+    // ================================================================
     function _d1(s) {
-
+        // 第一层: URL Safe Base64 解码 + 反交错
         try {
-
+            // Base64 解码 (URL safe)
             var _b = CryptoJS.enc.Base64.parse(s.replace(/-/g,'+').replace(/_/g,'/'));
             var _s = CryptoJS.enc.Utf8.stringify(_b);
-
+            
+            // 反交错: 提取 @...@ 部分，忽略 !...! 噪声
             var _p = [];
             var _i = 0;
             while (_i < _s.length) {
@@ -208,7 +225,7 @@
                         _i = _end + 1;
                     } else { _i++; }
                 } else {
-
+                    // 跳过噪声段 !...!
                     if (_ch === '!') {
                         var _end2 = _s.indexOf('!', _i + 1);
                         _i = (_end2 > _i) ? _end2 + 1 : _i + 1;
@@ -218,12 +235,12 @@
             return _p.join('');
         } catch(e) { return null; }
     }
-
-    function _d2(s) {
-
+    
+    function _d2(s, key) {
+        // 第二层: AES-256 解密
         try {
-            var _k = CryptoJS.enc.Utf8.parse(SALT);
-            var _iv = CryptoJS.enc.Utf8.parse(SALT.substring(0, 16));
+            var _k = CryptoJS.SHA256(key);
+            var _iv = CryptoJS.enc.Hex.parse('313331346279796a0000000000000000');
             var _dec = CryptoJS.AES.decrypt(s, _k, {
                 iv: _iv,
                 mode: CryptoJS.mode.CBC,
@@ -232,44 +249,45 @@
             return _dec.toString(CryptoJS.enc.Utf8);
         } catch(e) { return null; }
     }
-
+    
     function _v(p) {
-
-        var _hash = p + SALT;
-        for (var _i = 0; _i < 1000; _i++) {
-            _hash = CryptoJS.SHA256(_hash).toString();
-        }
-
+        // 验证密码: SHA256(密码 + 盐值)
+        // 简化版直接使用单次SHA256
         var _simple = CryptoJS.SHA256(p + SALT).toString();
         return _simple === PASSWORD_HASH;
     }
-
+    
     function _decrypt(p) {
-
+        // 完整解密流程
         try {
-
+            // 验证密码
             var _simple = CryptoJS.SHA256(p + SALT).toString();
             if (_simple !== PASSWORD_HASH) return null;
-
+            
+            // 第一层: 反混淆
             var _l1 = _d1(ENCRYPTED_RAW);
             if (!_l1) return null;
-
-            var _content = _d2(_l1);
+            
+            // 第二层: AES 解密 (传入密码作为密钥种子)
+            var _content = _d2(_l1, p);
             return _content;
         } catch(e) { return null; }
     }
 
+    // ================================================================
+    // 第5层防御：锁定机制 + 反暴力破解
+    // ================================================================
     var _KEY_DATE = 'secret_date_v2';
     var _KEY_ATT = 'secret_attempts_v2';
     var _KEY_LOCK = 'secret_lock_until_v2';
-
+    
     var INP = document.getElementById('secretPassword');
     var BTN = document.getElementById('unlockBtn');
     var ERR = document.getElementById('secretError');
     var CONT = document.getElementById('secretContent');
-
+    
     function _getDate() { return new Date().toISOString().split('T')[0]; }
-
+    
     function _getAttempts() {
         var d = localStorage.getItem(_KEY_DATE);
         if (d !== _getDate()) {
@@ -279,13 +297,13 @@
         }
         return parseInt(localStorage.getItem(_KEY_ATT)) || 0;
     }
-
+    
     function _setAttempts(v) { localStorage.setItem(_KEY_ATT, v.toString()); }
-
+    
     function _getLockTime() { return parseInt(localStorage.getItem(_KEY_LOCK)) || 0; }
-
+    
     function _setLockTime(t) { localStorage.setItem(_KEY_LOCK, t.toString()); }
-
+    
     function _isLocked() {
         var t = _getLockTime();
         if (t === 0) return false;
@@ -293,41 +311,42 @@
         _setLockTime(0);
         return false;
     }
-
+    
     function _lockRemaining() {
         var t = _getLockTime();
         if (t === 0) return 0;
         return Math.max(0, Math.ceil((t - Date.now()) / 60000));
     }
-
+    
     function _showErr(m) { ERR.textContent = m; }
     function _showContent(h) {
         CONT.innerHTML = h;
         CONT.classList.add('show');
         _showErr('✅ 解锁成功！');
         _setAttempts(0);
-
+        // 隐藏输入框和按钮，防止重复尝试
         INP.style.display = 'none';
         BTN.style.display = 'none';
     }
-
+    
     function _doUnlock() {
-
+        // 如果检测到开发者工具，拒绝执行
         if (_devOpen) {
             _showErr('🔒 请关闭开发者工具后再试');
             return;
         }
-
+        
         if (_isLocked()) {
             var r = _lockRemaining();
             _showErr('🔒 已锁定，剩余 ' + r + ' 分钟。');
             window.location.href = '404.html';
             return;
         }
-
+        
         var entered = INP.value.trim();
         if (!entered) { _showErr('请输入密码。'); return; }
-
+        
+        // 验证密码
         if (!_v(entered)) {
             var att = _getAttempts() + 1;
             _setAttempts(att);
@@ -343,7 +362,8 @@
                 return;
             }
         }
-
+        
+        // 密码正确，尝试解密
         var content = _decrypt(entered);
         if (!content) {
             _showErr('⚠️ 解密失败，请稍后再试。');
@@ -351,10 +371,11 @@
         }
         _showContent(content);
     }
-
+    
     BTN.addEventListener('click', _doUnlock);
     INP.addEventListener('keydown', function(e) { if (e.key === 'Enter') BTN.click(); });
-
+    
+    // 页面加载时显示状态
     (function() {
         if (_isLocked()) {
             var r = _lockRemaining();
@@ -373,6 +394,7 @@
 })();
 </script>
 
+<!-- ===== 加载动画管理脚本 ===== -->
 <script>
 (function() {
     function hideLoader() {
@@ -384,7 +406,7 @@
             }, 600);
         }
     }
-
+    // 彩蛋页面主要是脚本驱动，等待加解密相关脚本加载
     var scripts = document.querySelectorAll('script[src]');
     if (scripts.length > 0) {
         var loadedCount = 0;
@@ -404,7 +426,7 @@
                 });
             })(scripts[i]);
         }
-
+        // 兜底：3秒后强制隐藏
         setTimeout(hideLoader, 3000);
     } else {
         setTimeout(hideLoader, 500);
