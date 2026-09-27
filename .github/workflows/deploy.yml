@@ -1,0 +1,58 @@
+name: Deploy Site from Encrypted Package
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download encrypted package from Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/pkg
+          gh release download --pattern 'site.tar.gz.enc' --dir /tmp/pkg --clobber
+          ls -la /tmp/pkg
+
+      - name: Decrypt and extract
+        env:
+          PASS: ${{ secrets.REMOTE_FILE_PASSWORD }}
+        run: |
+          mkdir -p /tmp/site
+          openssl enc -d -aes-256-cbc -pbkdf2 -in /tmp/pkg/site.tar.gz.enc -out /tmp/site.tar.gz -pass pass:"$PASS"
+          tar -xzf /tmp/site.tar.gz -C /tmp/site
+          ls -la /tmp/site
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
